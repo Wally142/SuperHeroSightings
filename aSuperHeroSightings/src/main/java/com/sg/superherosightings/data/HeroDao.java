@@ -17,6 +17,6 @@ public interface HeroDao {
     
     public boolean deleteHero(int id);
     
-    public Hero save(Hero hero);
+    public Hero saveHero(Hero hero);
     
 }

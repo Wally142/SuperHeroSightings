@@ -70,7 +70,7 @@ public class HeroDaoImpl implements HeroDao {
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @Override
-    public Hero save(Hero hero) {
+    public Hero saveHero(Hero hero) {
         if (hero.getId() <= 0) {
             return addHero(hero);
         } else {

@@ -1,8 +1,8 @@
 package com.sg.superherosightings.controllers;
 
 import com.sg.superherosightings.models.Hero;
+import com.sg.superherosightings.models.Organization;
 import com.sg.superherosightings.service.HeroAndOrganizationService;
-import com.sg.superherosightings.service.LocationAndSightingService;
 import com.sg.superherosightings.service.Result;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,42 +18,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
-public class HeroController {
+@RequestMapping("/api/org")
+public class OrganizationController {
 
     @Autowired
     private HeroAndOrganizationService heroService;
 
-    @GetMapping("/heroes")
-    public List<Hero> getAllHeroes() {
-        return heroService.getAllHeroes();
+    @GetMapping("/all")
+    public List<Organization> getOrganizations() {
+        return heroService.getOrganizations();
     }
 
-    @GetMapping("/hero/{heroId}")
-    public Hero getHeroById(@PathVariable int heroId) {
-        return heroService.getHeroById(heroId);
-
+    @GetMapping("/{orgId}")
+    public Organization getOrgById(@PathVariable int orgId) {
+        return heroService.getOrgById(orgId);
     }
 
-    @PostMapping("/hero")
-    public ResponseEntity<Hero> addHero(@RequestBody Hero hero) {
+    @PostMapping("/add")
+    public ResponseEntity<Organization> addOrg(@RequestBody Organization org) {
 
-        Result<Hero> result = heroService.saveHero(hero);
+        Result<Organization> result = heroService.saveOrg(org);
         if (result.isSuccess()) {
-            return ResponseEntity.ok(hero);
+            return ResponseEntity.ok(org);
         } else {
             return ResponseEntity.noContent().build();
         }
     }
 
-    @PutMapping("/hero/{heroId}")
-    public ResponseEntity<Void> updateHero(@PathVariable int heroId, @RequestBody Hero hero) {
+    @PutMapping("/{orgId}")
+    public ResponseEntity<Void> updateOrg(@PathVariable int orgId, @RequestBody Organization org) {
 
-        if (hero.getId() <= 0 || heroId <= 0 || heroId != hero.getId()) {
+        if (org.getId() <= 0 || orgId <= 0 || orgId != org.getId()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        Result<Hero> result = heroService.saveHero(hero);
+        Result<Organization> result = heroService.saveOrg(org);
         if (result.isSuccess()) {
             return ResponseEntity.ok().build();
         } else {
@@ -61,10 +60,11 @@ public class HeroController {
         }
     }
 
-    @DeleteMapping("/hero/{heroId}")
-    public ResponseEntity<Void> deleteHero(@PathVariable int heroId) {
+    @DeleteMapping("/{orgId}")
+    public ResponseEntity<Void> deleteOrg(@PathVariable int orgId) {
 
-        heroService.deleteHero(heroId);
+        heroService.deleteOrg(orgId);
         return ResponseEntity.ok().build();
     }
+
 }
