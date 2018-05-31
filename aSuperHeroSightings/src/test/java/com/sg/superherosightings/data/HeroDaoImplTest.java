@@ -1,82 +1,63 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sg.superherosightings.data;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import com.sg.superherosightings.models.Hero;
+import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author wally
- */
 public class HeroDaoImplTest {
-    
-    public HeroDaoImplTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
-    /**
-     * Test of getHeroes method, of class HeroDaoImpl.
-     */
+    private HeroDao heroDao = new HeroDaoImpl();
+
     @Test
     public void testGetHeroes() {
+
+        List<Hero> heroes = heroDao.getHeroes();
+        assertTrue(heroes.size() > 0);
     }
 
-    /**
-     * Test of getHeroById method, of class HeroDaoImpl.
-     */
     @Test
     public void testGetHeroById() {
+        
+        Hero hero = heroDao.getHeroById(1);
+        assertEquals(hero.getName(), "Batman" );
     }
 
-    /**
-     * Test of addHero method, of class HeroDaoImpl.
-     */
     @Test
     public void testAddHero() {
+        Hero hero = new Hero();
+        hero.setName("Wonder Woman");
+        hero.setDescription("Powerful Amazon Warrior");
+        hero.setCity("Themyscyra");
+        hero.setVillain(false);
+        
+        Hero addedHero = heroDao.addHero(hero);
+        Hero fromDB = heroDao.getHeroById(addedHero.getId());
+        
+        assertEquals(addedHero, fromDB);
     }
 
-    /**
-     * Test of editHero method, of class HeroDaoImpl.
-     */
+    
     @Test
     public void testEditHero() {
+        Hero hero = heroDao.getHeroById(4);
+        hero.setDescription("Known as the fastest man alive and a founding member of the Justice League");
+        
+        Hero heroEdit = heroDao.save(hero);
+        hero = heroDao.getHeroById(4);
+        
+        assertEquals(hero, heroEdit);
+        
+        
     }
 
-    /**
-     * Test of deleteHero method, of class HeroDaoImpl.
-     */
     @Test
     public void testDeleteHero() {
+        Hero hero = heroDao.getHeroById(5);
+        
+        heroDao.deleteHero(5);
+        
+        assertNull(hero);
     }
 
-    /**
-     * Test of save method, of class HeroDaoImpl.
-     */
-    @Test
-    public void testSave() {
-    }
-    
-}
+ }

@@ -67,7 +67,7 @@ public class HeroDaoImpl implements HeroDao {
     public boolean deleteHero(int id) {
         return jt.update("DELETE FROM hero WHERE id = ?;", id) > 0;
     }
-    
+
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @Override
     public Hero save(Hero hero) {
@@ -94,7 +94,5 @@ public class HeroDaoImpl implements HeroDao {
 
             return h;
         }
-
     }
-
 }
