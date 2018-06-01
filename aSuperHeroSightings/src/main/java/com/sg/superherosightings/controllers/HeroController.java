@@ -28,6 +28,11 @@ public class HeroController {
     public List<Hero> getAllHeroes() {
         return heroService.getAllHeroes();
     }
+    
+    @GetMapping("/villains")
+    public List<Hero> getAllVillains() {
+        return heroService.getAllVillains();
+    }
 
     @GetMapping("/hero/{heroId}")
     public Hero getHeroById(@PathVariable int heroId) {

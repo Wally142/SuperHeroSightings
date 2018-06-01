@@ -8,6 +8,7 @@ import lombok.Data;
 public class Sighting {
 
     private int id;
+    private int locationId;
     private LocalDate sighted;
     private List<Hero> heroes;
 }

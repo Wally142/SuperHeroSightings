@@ -19,7 +19,12 @@ public class HeroDaoImpl implements HeroDao {
 
     @Override
     public List<Hero> getHeroes() {
-        return jt.query("SELECT * FROM hero;", new HeroMapper());
+        return jt.query("SELECT * FROM hero where villain = FALSE;", new HeroMapper());
+    }
+    
+    @Override
+    public List<Hero> getVillains() {
+        return jt.query("SELECT * FROM hero where villain = True;", new HeroMapper());
     }
 
     @Override

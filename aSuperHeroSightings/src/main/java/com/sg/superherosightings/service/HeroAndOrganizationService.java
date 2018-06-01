@@ -24,6 +24,10 @@ public class HeroAndOrganizationService {
     public List<Hero> getAllHeroes() {
         return heroDao.getHeroes();
     }
+    
+    public List<Hero> getAllVillains() {
+        return heroDao.getVillains();
+    }
 
     public Hero getHeroById(int id) {
         return heroDao.getHeroById(id);

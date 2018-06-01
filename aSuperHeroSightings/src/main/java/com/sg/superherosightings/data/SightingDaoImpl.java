@@ -30,8 +30,10 @@ public class SightingDaoImpl implements SightingDao {
 
     @Override
     public Sighting addSighting(Sighting sight) {
+        System.out.println("location id " + sight.getLocationId());
         jt.update(
-                "INSERT INTO sighting (sighted) VALUES (?);",
+                "INSERT INTO sighting (locationId, sighted) VALUES (?, ?);",
+                sight.getLocationId(),
                 sight.getSighted()
                 
         );
@@ -46,10 +48,12 @@ public class SightingDaoImpl implements SightingDao {
     @Override
     public boolean editSighting(Sighting sight) {
         String sql = "UPDATE sighting SET"
+                + " location_id = ?,"
                 + " sighted = ?"
                 + " WHERE id = ?;";
 
         return jt.update(sql,
+                sight.getLocationId(),
                 sight.getSighted(),
                 sight.getId()) > 0;
     }

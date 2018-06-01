@@ -9,6 +9,8 @@ public interface HeroDao {
     
     public List<Hero> getHeroes();
     
+    public List<Hero> getVillains();
+    
     public Hero getHeroById (int hero);
     
     public Hero addHero(Hero hero);
@@ -19,4 +21,4 @@ public interface HeroDao {
     
     public Hero saveHero(Hero hero);
     
-}
+    }

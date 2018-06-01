@@ -32,35 +32,35 @@ public class HeroDaoImplTest {
 //        assertEquals(newHero.getName(), fromDB.getName());
 //    }
 
-    @Test
-    public void testEditHero() {
-
-        Hero hero = heroDao.getHeroById(2);
-
-        hero.setName("Batman");
-        hero.setDescription("The Dark Knight, does not like Guns");
-        hero.setCity("Gotham");
-        hero.setVillain(false);
-
-        Hero heroEdit = heroDao.saveHero(hero);
-        Hero db = heroDao.getHeroById(hero.getId());
-
-        assertEquals(db, heroEdit);
-    }
-
-    @Test
-    public void testGetHeroes() {
-
-        List<Hero> heroes = heroDao.getHeroes();
-        assertTrue(heroes.size() > 0);
-    }
-
-    @Test
-    public void testGetHeroById() {
-
-        Hero hero = heroDao.getHeroById(1);
-        assertEquals(hero.getName(), "The Flash");
-    }
+//    @Test
+//    public void testEditHero() {
+//
+//        Hero hero = heroDao.getHeroById(2);
+//
+//        hero.setName("Batman");
+//        hero.setDescription("The Dark Knight, does not like Guns");
+//        hero.setCity("Gotham");
+//        hero.setVillain(false);
+//
+//        Hero heroEdit = heroDao.saveHero(hero);
+//        Hero db = heroDao.getHeroById(hero.getId());
+//
+//        assertEquals(db, heroEdit);
+//    }
+//
+//    @Test
+//    public void testGetHeroes() {
+//
+//        List<Hero> heroes = heroDao.getHeroes();
+//        assertTrue(heroes.size() > 0);
+//    }
+//
+//    @Test
+//    public void testGetHeroById() {
+//
+//        Hero hero = heroDao.getHeroById(1);
+//        assertEquals(hero.getName(), "The Flash");
+//    }
 
 //    @Test
 //    public void testDeleteHero() {
