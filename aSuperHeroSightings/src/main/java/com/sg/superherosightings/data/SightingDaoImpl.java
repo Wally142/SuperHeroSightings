@@ -31,7 +31,7 @@ public class SightingDaoImpl implements SightingDao {
     @Override
     public Sighting addSighting(Sighting sight) {
         jt.update(
-                "INSERT INTO sighted (sighted) VALUES (?);",
+                "INSERT INTO sighting (sighted) VALUES (?);",
                 sight.getSighted()
                 
         );
@@ -46,7 +46,7 @@ public class SightingDaoImpl implements SightingDao {
     @Override
     public boolean editSighting(Sighting sight) {
         String sql = "UPDATE sighting SET"
-                + " sighted = ?,"
+                + " sighted = ?"
                 + " WHERE id = ?;";
 
         return jt.update(sql,
