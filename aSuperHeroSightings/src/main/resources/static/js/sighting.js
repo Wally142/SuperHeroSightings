@@ -21,8 +21,6 @@ function loadLocations() {
 
 $('#sight').click(function () {
 
-    $('#hero').empty();
-    $('#datetime').empty();
     var id = $('#location').val();
     var sight = $('#datetime').val();
     console.log(id);
@@ -50,6 +48,9 @@ $('#sight').click(function () {
         }
 
     });
+
+    $('#hero').empty();
+    $('#datetime').empty();
 
     // var sightId = $('#datetime').val();
     // var heroId = $('#hero').val();

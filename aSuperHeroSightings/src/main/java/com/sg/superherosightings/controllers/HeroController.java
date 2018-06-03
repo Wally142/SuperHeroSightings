@@ -2,7 +2,6 @@ package com.sg.superherosightings.controllers;
 
 import com.sg.superherosightings.models.Hero;
 import com.sg.superherosightings.service.HeroAndOrganizationService;
-import com.sg.superherosightings.service.LocationAndSightingService;
 import com.sg.superherosightings.service.Result;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

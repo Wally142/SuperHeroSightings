@@ -1,16 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.sg.superherosightings.data;
 
-/**
- *
- * @author wally
- */
+import com.sg.superherosightings.models.Sighting;
+import java.util.List;
+
+
 public interface BridgeDao {
     
     public Integer heroSighting (int a, int b);
+    
+    public List<Sighting> showRecentSightings();
     
 }
