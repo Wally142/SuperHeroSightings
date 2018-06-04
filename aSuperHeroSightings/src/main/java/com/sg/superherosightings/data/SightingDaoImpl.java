@@ -1,19 +1,21 @@
-
 package com.sg.superherosightings.data;
 
 import com.sg.superherosightings.models.Sighting;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class SightingDaoImpl implements SightingDao {
-    
-     @Autowired
+
+    @Autowired
     private JdbcTemplate jt;
 
     @Override
@@ -29,21 +31,19 @@ public class SightingDaoImpl implements SightingDao {
     }
 
     @Override
-    public Sighting addSighting(Sighting sight) {
-        System.out.println("location id " + sight.getLocationId());
+    public Sighting addSighting(Sighting sighting) {
+
         jt.update(
                 "INSERT INTO sighting (locationId, sighted) VALUES (?, ?);",
-                sight.getLocationId(),
-                sight.getSighted()
-                
+                sighting.getLocationId(),
+                sighting.getSighted()
         );
 
         int id = jt.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
 
-        sight.setId(id);
-        return sight;
+        sighting.setId(id);
+        return sighting;
     }
-    
 
     @Override
     public boolean editSighting(Sighting sight) {
@@ -64,6 +64,7 @@ public class SightingDaoImpl implements SightingDao {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public Sighting saveSight(Sighting sight) {
         if (sight.getId() <= 0) {
             return addSighting(sight);
@@ -76,6 +77,7 @@ public class SightingDaoImpl implements SightingDao {
     }
 
     private static final class SightMapper implements RowMapper<Sighting> {
+        
 
         @Override
         public Sighting mapRow(ResultSet rs, int i) throws SQLException {

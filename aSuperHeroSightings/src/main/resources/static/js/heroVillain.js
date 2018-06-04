@@ -3,6 +3,8 @@ loadVillains();
 
 function loadHeroes() {
     $('#heroes').empty();
+    $('#editHero').hide();
+    $('#deleteHero').hide();
     $.ajax({
         type: 'GET',
         url: 'http://localhost:8080/api/heroes',
@@ -36,7 +38,7 @@ function getHero(dat) {
         success: function (data, status) {
 
             console.log(data)
-            // console.log(item)
+
             var heroName = data.name
             var id = data.id
             var heroDesc = data.description
@@ -48,6 +50,16 @@ function getHero(dat) {
             heroDiv.append(heroCity)
             $('#heroes').append(heroDiv);
             $('#heroes').append(`<a class="btn btn-primary" href="heroes.html">Back to Heroes</a>`)
+            $('#heroes').append(`<a id="editHero" class="btn btn-primary" href="#">Edit Hero</a>`)
+            $('#heroes').append(`<a id="deleteHero" class="btn btn-primary" href="#">Delete Hero</a>`)
+            $('#addHeroPage').hide();
+            $('#editHero').on('click', function () {
+                edit(data)
+            })
+            $('#deleteHero').on('click', function () {
+                deleteHero(id)
+            })
+
         }
     })
 };// end get Hero
@@ -60,12 +72,14 @@ function heroInput() {
     $('#heroes').append('<input type="text" id="name" placeholder="Hero Name"><br>')
     $('#heroes').append('<input type="text" id="desc" placeholder="Description"><br>')
     $('#heroes').append('<input type="text" id="city" placeholder="City/Home"><br>')
-    $('#heroes').append('<input type="text" id="powers" placeholder="Powers and Abilities"><br>')
-    $('#heroes').append('<input type="text" id="org" placeholder="Hero Organizations"><br>')
+    $('#heroes').append('<select id="powers"><br>')
+    $('#heroes').append('<select id="orgs"><br>')
     $('#heroes').append('<button id="add" class="btn btn-primary">Submit</button>')
     $('#heroes').append('<a class="btn btn-danger" href="/heroes.html">Back</button>')
     $('#addHeroPage').hide();
     $('#add').on("click", addHero);
+    loadPowers();
+    loadOrgs();
 }
 
 function addHero() {
@@ -93,31 +107,96 @@ function addHero() {
             $('#heroes').empty();
             loadHeroes();
             $('#addHeroPage').show();
+
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:8080/api/hero/powers/',
+                data: JSON.stringify({
+                    hero_id: powers
+                }),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                dataType: 'json',
+                success: function (data) {
+                    console.log('Successfully posted in hero_powers table');
+
+                },
+                error: function () {
+                    console.log('try again :(');
+                }
+            });
+
         },
         error: function () {
             console.log('try again :(');
         }
     }); // end first ajax call
+}
 
-    // $.ajax({
-    //     type: 'POST',
-    //     url: 'http://localhost:8080/api/hero/powers/',
-    //     data: JSON.stringify({
-    //         powers: powers
-    //     }),
-    //     headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json'
-    //     },
-    //     dataType: 'json',
-    //     success: function (data) {
-    //         console.log('Successfully posted in powers table');
+function deleteHero(id) {
+    $.ajax({
+        type: 'DELETE',
+        url: "http://localhost:8080/api/hero/" + id,
+        success: function (status) {
+            loadHeroes();
+            $('#addHeroPage').show();
+        }
+    });
+}
 
-    //     },
-    //     error: function () {
-    //         console.log('try again :(');
-    //     }
-    // });
+function edit(data) {
+    $('#heroes').empty();
+    $('#heroes').append('<input type="text" id="name" placeholder="Hero Name"><br>')
+    $('#heroes').append('<input type="text" id="desc" placeholder="Description"><br>')
+    $('#heroes').append('<input type="text" id="city" placeholder="City/Home"><br>')
+    $('#heroes').append('<select id="powers"><br>')
+    $('#heroes').append('<select id="orgs"><br>')
+    $('#heroes').append(`<a id="edit" class="btn btn-primary" href="#">Edit Hero</a>`)
+    loadPowers();
+    loadOrgs();
+    var name = $('#name').val(data.name)
+    var desc = $('#desc').val(data.description)
+    var city = $('#city').val(data.city)
+    var id = data.id;
+    $('#edit').on("click", function () {
+        editHero(id);
+    })
+}
+
+function editHero(id) {
+
+    console.log(id)
+    var name = $('#name').val()
+    var desc = $('#desc').val()
+    var city = $('#city').val()
+
+    $.ajax({
+        type: 'PUT',
+        url: 'http://localhost:8080/api/hero/' + id,
+        data: JSON.stringify({
+            id: id,
+            name: name,
+            description: desc,
+            city: city
+        }),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        'dataType': 'json'
+    }).always(function (xhr) {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            console.log('successful update!');
+            $('#heroes').empty();
+            loadHeroes();
+            $('#addHeroPage').show();
+        } else {
+            console.log('failed Edit Attempt')
+        }
+
+    })
 }
 //========================END OF HERO FUNCTIONS=========================//
 
@@ -173,6 +252,15 @@ function getVillain(dat) {
             heroDiv.append(heroCity)
             $('#villains').append(heroDiv);
             $('#villains').append(`<a class="btn btn-primary" href="villain.html">Back to Villains</a>`)
+            $('#villains').append(`<a id="editVillain" class="btn btn-primary" href="#">Edit Villain</a>`)
+            $('#villains').append(`<a id="deleteVillain" class="btn btn-primary" href="#">Delete Villain</a>`)
+            $('#addVillainPage').hide();
+            $('#editVillain').on('click', function () {
+                editVil(data)
+            })
+            $('#deleteVillain').on('click', function () {
+                deleteVillain(id)
+            })
         }
     })
 };//get Villain
@@ -185,12 +273,14 @@ function villianInput() {
     $('#villains').append('<input type="text" id="name" placeholder="Villain Name"><br>')
     $('#villains').append('<input type="text" id="desc" placeholder="Description"><br>')
     $('#villains').append('<input type="text" id="city" placeholder="City/Home"><br>')
-    $('#villains').append('<input type="text" id="powers" placeholder="Powers and Abilities"><br>')
-    $('#villains').append('<input type="text" id="org" placeholder="Villain Organizations"><br>')
+    $('#villains').append('<select id="powers"><br>')
+    $('#villains').append('<select id="orgs"><br>')
     $('#villains').append('<button id="add" class="btn btn-primary">Submit</button>')
     $('#villains').append('<a class="btn btn-danger" href="/villain.html">Back</button>')
     $('#addVillainPage').hide();
     $('#add').on("click", addVillain);
+    loadPowers();
+    loadOrgs();
 }
 
 function addVillain() {
@@ -216,14 +306,140 @@ function addVillain() {
         },
         dataType: 'json',
         success: function (data) {
+            console.log(data)
             console.log('Successfully posted in hero table');
             $('#villains').empty();
             loadVillains();
             $('#addVillainPage').show();
+            var villainId = data.id;
+            var powersId = $('#powers').val();
+
+            $.ajax({
+
+                type: 'GET',
+                url: 'http://localhost:8080/api/bridge/power/' + villainId + '/' + powersId,
+                success: function (data) {
+                    console.log('Successfully posted in hero_powers table');
+                    console.log(villainId);
+                    console.log(powersId);
+
+                },
+                error: function () {
+                    console.log('try again :(');
+                }
+            });
 
         },
         error: function () {
             console.log('try again :(');
         }
+
     });
+
 }
+
+    function deleteVillain(id) {
+        $.ajax({
+            type: 'DELETE',
+            url: "http://localhost:8080/api/hero/" + id,
+            success: function (status) {
+                loadVillains();
+                $('#addVillainPage').show();
+            }
+        });
+    }
+
+    function editVil(data) {
+        $('#villains').empty();
+        $('#villains').append('<input type="text" id="name" placeholder="Villain Name"><br>')
+        $('#villains').append('<input type="text" id="desc" placeholder="Description"><br>')
+        $('#villains').append('<input type="text" id="city" placeholder="City/Home"><br>')
+        $('#villains').append('<select id="powers"><br>')
+        $('#villains').append('<select id="orgs"><br>')
+        $('#villains').append(`<a id="edit" class="btn btn-primary" href="#">Edit Villain</a>`)
+        loadPowers();
+        loadOrgs();
+        var name = $('#name').val(data.name)
+        var desc = $('#desc').val(data.description)
+        var city = $('#city').val(data.city)
+        var id = data.id;
+        $('#edit').on("click", function () {
+            editVillain(id);
+        })
+    }
+
+    function editVillain(id) {
+
+        console.log(id)
+        var name = $('#name').val()
+        var desc = $('#desc').val()
+        var city = $('#city').val()
+
+        $.ajax({
+            type: 'PUT',
+            url: 'http://localhost:8080/api/hero/' + id,
+            data: JSON.stringify({
+                id: id,
+                name: name,
+                description: desc,
+                city: city,
+                villain: true
+            }),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            'dataType': 'json'
+        }).always(function (xhr) {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                console.log('successful update!');
+                $('#villains').empty();
+                loadVillains();
+                $('#addVillainPage').show();
+            } else {
+                console.log('failed Edit Attempt')
+            }
+
+        })
+    }
+
+    //==================END VILLAIN=====================//
+
+    //==================POWERS/Orgs========================//
+
+    function loadPowers() {
+
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/api/powers',
+            success: function (data, status) {
+                $.each(data, function (index, item) {
+                    var name = item.name
+                    var id = item.id
+
+                    var option = $(`<option class="pow" value=${id} >${name}</option>`);
+
+                    $('#powers').append(option);
+                });
+            }
+        })
+    }
+
+    function loadOrgs() {
+
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/api/org/all',
+            success: function (data, status) {
+                $.each(data, function (index, item) {
+                    var name = item.name
+                    var id = item.id
+
+                    var option = $(`<option class="org" value=${id} >${name}</option>`);
+
+                    $('#orgs').append(option);
+                });
+            }
+        })
+    }
+

@@ -4,6 +4,7 @@ import com.sg.superherosightings.data.HeroDao;
 import com.sg.superherosightings.data.OrganizationDao;
 import com.sg.superherosightings.models.Hero;
 import com.sg.superherosightings.models.Organization;
+import com.sg.superherosightings.models.Power;
 import java.util.List;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
@@ -20,6 +21,10 @@ public class HeroAndOrganizationService {
 
     @Autowired
     private OrganizationDao orgDao;
+    
+    public List<Hero> getAll() {
+        return heroDao.getAll();
+    }
 
     public List<Hero> getAllHeroes() {
         return heroDao.getHeroes();
@@ -43,6 +48,10 @@ public class HeroAndOrganizationService {
             heroDao.saveHero(hero);
         }
         return result;
+    }
+    
+    public List<Power> getAllPowers() {
+        return heroDao.getPowers();
     }
 
     

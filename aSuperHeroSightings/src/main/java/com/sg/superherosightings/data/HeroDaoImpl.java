@@ -1,6 +1,7 @@
 package com.sg.superherosightings.data;
 
 import com.sg.superherosightings.models.Hero;
+import com.sg.superherosightings.models.Power;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -18,10 +19,15 @@ public class HeroDaoImpl implements HeroDao {
     private JdbcTemplate jt;
 
     @Override
+    public List<Hero> getAll() {
+        return jt.query("SELECT * FROM hero", new HeroMapper());
+    }
+
+    @Override
     public List<Hero> getHeroes() {
         return jt.query("SELECT * FROM hero where villain = FALSE;", new HeroMapper());
     }
-    
+
     @Override
     public List<Hero> getVillains() {
         return jt.query("SELECT * FROM hero where villain = True;", new HeroMapper());
@@ -86,6 +92,11 @@ public class HeroDaoImpl implements HeroDao {
         return null;
     }
 
+    @Override
+    public List<Power> getPowers() {
+        return jt.query("SELECT * FROM powers", new PowerMapper());
+    }
+
     private static final class HeroMapper implements RowMapper<Hero> {
 
         @Override
@@ -100,4 +111,17 @@ public class HeroDaoImpl implements HeroDao {
             return h;
         }
     }
+
+    private static final class PowerMapper implements RowMapper<Power> {
+
+        @Override
+        public Power mapRow(ResultSet rs, int i) throws SQLException {
+            Power p = new Power();
+            p.setId(rs.getInt("id"));
+            p.setName(rs.getString("name"));
+
+            return p;
+        }
+    }
+
 }

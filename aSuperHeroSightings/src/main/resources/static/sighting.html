@@ -32,20 +32,26 @@
 
     <h1 class="text-center">Superhero and Villain Sightings!</h1>
 
+    <br>
     <div class="container">
 
         <div class="container">
+
+            <div class="dropdown">
+                <label>Select A Location</label>
+                <select id="location"></select>
+            </div>
+
+            <br>
             
             <div class="dropdown">
-            <select id="location">Select a Location</select>
-                </div>
+                <label>Who Did You See?</label>
+                <select id="hero"></select>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="hero">Who was it?</label>
-            <input type="text" id="hero" class="form-control">
-
-        </div>
+        <br>
+        
         <div class="form-group">
             <label for="time">Date and Time</label>
             <input type="datetime-local" id="datetime" class="form-control">

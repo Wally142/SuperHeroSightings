@@ -59,6 +59,7 @@ function addOrg() {
         },
         dataType: 'json',
         success: function (data) {
+            console.log(data)
             console.log('Successfully posted in Organization table');
             $('#organization').empty();
             loadOrganizations();

@@ -1,6 +1,7 @@
 package com.sg.superherosightings.controllers;
 
 import com.sg.superherosightings.models.Hero;
+import com.sg.superherosightings.models.Power;
 import com.sg.superherosightings.service.HeroAndOrganizationService;
 import com.sg.superherosightings.service.Result;
 import java.util.List;
@@ -22,6 +23,16 @@ public class HeroController {
 
     @Autowired
     private HeroAndOrganizationService heroService;
+    
+    @GetMapping("/all")
+    public List<Hero> getAll() {
+        return heroService.getAll();
+    }
+    
+    @GetMapping("/powers")
+    public List<Power> getAllPowers() {
+        return heroService.getAllPowers();
+    }
 
     @GetMapping("/heroes")
     public List<Hero> getAllHeroes() {

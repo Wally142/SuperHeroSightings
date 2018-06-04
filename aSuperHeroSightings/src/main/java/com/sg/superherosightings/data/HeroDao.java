@@ -1,6 +1,7 @@
 package com.sg.superherosightings.data;
 
 import com.sg.superherosightings.models.Hero;
+import com.sg.superherosightings.models.Power;
 import com.sg.superherosightings.service.Result;
 import java.util.List;
 
@@ -8,6 +9,8 @@ import java.util.List;
 public interface HeroDao {
     
     public List<Hero> getHeroes();
+    
+    public List<Hero> getAll();
     
     public List<Hero> getVillains();
     
@@ -20,5 +23,7 @@ public interface HeroDao {
     public boolean deleteHero(int id);
     
     public Hero saveHero(Hero hero);
+    
+    public List<Power> getPowers();
     
     }

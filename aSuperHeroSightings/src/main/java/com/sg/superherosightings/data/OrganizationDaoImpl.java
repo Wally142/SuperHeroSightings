@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class OrganizationDaoImpl implements OrganizationDao {
@@ -63,6 +65,7 @@ public class OrganizationDaoImpl implements OrganizationDao {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public Organization saveOrg(Organization org) {
         if (org.getId() <= 0) {
             return addOrganization(org);
