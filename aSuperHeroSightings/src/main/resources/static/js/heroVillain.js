@@ -15,7 +15,7 @@ function loadHeroes() {
                 var desc = item.description
                 var city = item.city
 
-                var div = $('<div class="col-6"</div>');
+                var div = $('<div></div>');
                 var link = $(`<a class="showOne" data-id=${id} href="#">${name}<a>`)
                 div.append(link);
 
@@ -217,7 +217,7 @@ function loadVillains() {
                 var city = item.city
 
 
-                var div = $('<div class="col-6"</div>');
+                var div = $('<div></div>');
                 var link = $(`<a class="showOne" data-id=${id} href="#">${name}<a>`)
                 div.append(link);
 
@@ -273,7 +273,7 @@ function villianInput() {
     $('#villains').append('<input type="text" id="name" placeholder="Villain Name"><br>')
     $('#villains').append('<input type="text" id="desc" placeholder="Description"><br>')
     $('#villains').append('<input type="text" id="city" placeholder="City/Home"><br>')
-    $('#villains').append('<select id="powers"><br>')
+    $('#villains').append('<select id="powers"><<br>')
     $('#villains').append('<select id="orgs"><br>')
     $('#villains').append('<button id="add" class="btn btn-primary">Submit</button>')
     $('#villains').append('<a class="btn btn-danger" href="/villain.html">Back</button>')
@@ -306,13 +306,14 @@ function addVillain() {
         },
         dataType: 'json',
         success: function (data) {
-            console.log(data)
-            console.log('Successfully posted in hero table');
+            var powersId = $('#powers').val();
+            console.log(powersId);
+            
+            // console.log('Successfully posted in hero table');
             $('#villains').empty();
             loadVillains();
             $('#addVillainPage').show();
             var villainId = data.id;
-            var powersId = $('#powers').val();
 
             $.ajax({
 
@@ -338,108 +339,108 @@ function addVillain() {
 
 }
 
-    function deleteVillain(id) {
-        $.ajax({
-            type: 'DELETE',
-            url: "http://localhost:8080/api/hero/" + id,
-            success: function (status) {
-                loadVillains();
-                $('#addVillainPage').show();
-            }
-        });
-    }
+function deleteVillain(id) {
+    $.ajax({
+        type: 'DELETE',
+        url: "http://localhost:8080/api/hero/" + id,
+        success: function (status) {
+            loadVillains();
+            $('#addVillainPage').show();
+        }
+    });
+}
 
-    function editVil(data) {
-        $('#villains').empty();
-        $('#villains').append('<input type="text" id="name" placeholder="Villain Name"><br>')
-        $('#villains').append('<input type="text" id="desc" placeholder="Description"><br>')
-        $('#villains').append('<input type="text" id="city" placeholder="City/Home"><br>')
-        $('#villains').append('<select id="powers"><br>')
-        $('#villains').append('<select id="orgs"><br>')
-        $('#villains').append(`<a id="edit" class="btn btn-primary" href="#">Edit Villain</a>`)
-        loadPowers();
-        loadOrgs();
-        var name = $('#name').val(data.name)
-        var desc = $('#desc').val(data.description)
-        var city = $('#city').val(data.city)
-        var id = data.id;
-        $('#edit').on("click", function () {
-            editVillain(id);
-        })
-    }
+function editVil(data) {
+    $('#villains').empty();
+    $('#villains').append('<input type="text" id="name" placeholder="Villain Name"><br>')
+    $('#villains').append('<input type="text" id="desc" placeholder="Description"><br>')
+    $('#villains').append('<input type="text" id="city" placeholder="City/Home"><br>')
+    $('#villains').append('<select id="powers"><br>')
+    $('#villains').append('<select id="orgs"><br>')
+    $('#villains').append(`<a id="edit" class="btn btn-primary" href="#">Edit Villain</a>`)
+    loadPowers();
+    loadOrgs();
+    var name = $('#name').val(data.name)
+    var desc = $('#desc').val(data.description)
+    var city = $('#city').val(data.city)
+    var id = data.id;
+    $('#edit').on("click", function () {
+        editVillain(id);
+    })
+}
 
-    function editVillain(id) {
+function editVillain(id) {
 
-        console.log(id)
-        var name = $('#name').val()
-        var desc = $('#desc').val()
-        var city = $('#city').val()
+    console.log(id)
+    var name = $('#name').val()
+    var desc = $('#desc').val()
+    var city = $('#city').val()
 
-        $.ajax({
-            type: 'PUT',
-            url: 'http://localhost:8080/api/hero/' + id,
-            data: JSON.stringify({
-                id: id,
-                name: name,
-                description: desc,
-                city: city,
-                villain: true
-            }),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            'dataType': 'json'
-        }).always(function (xhr) {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                console.log('successful update!');
-                $('#villains').empty();
-                loadVillains();
-                $('#addVillainPage').show();
-            } else {
-                console.log('failed Edit Attempt')
-            }
+    $.ajax({
+        type: 'PUT',
+        url: 'http://localhost:8080/api/hero/' + id,
+        data: JSON.stringify({
+            id: id,
+            name: name,
+            description: desc,
+            city: city,
+            villain: true
+        }),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        'dataType': 'json'
+    }).always(function (xhr) {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            console.log('successful update!');
+            $('#villains').empty();
+            loadVillains();
+            $('#addVillainPage').show();
+        } else {
+            console.log('failed Edit Attempt')
+        }
 
-        })
-    }
+    })
+}
 
-    //==================END VILLAIN=====================//
+//==================END VILLAIN=====================//
 
-    //==================POWERS/Orgs========================//
+//==================POWERS/Orgs========================//
 
-    function loadPowers() {
+function loadPowers() {
 
-        $.ajax({
-            type: 'GET',
-            url: 'http://localhost:8080/api/powers',
-            success: function (data, status) {
-                $.each(data, function (index, item) {
-                    var name = item.name
-                    var id = item.id
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8080/api/powers',
+        success: function (data, status) {
+            $.each(data, function (index, item) {
+                var name = item.name
+                var id = item.id
 
-                    var option = $(`<option class="pow" value=${id} >${name}</option>`);
+                var option = $(`<option class="pow" value=${id} >${name}</option>`);
 
-                    $('#powers').append(option);
-                });
-            }
-        })
-    }
+                $('#powers').append(option);
+            });
+        }
+    })
+}
 
-    function loadOrgs() {
+function loadOrgs() {
 
-        $.ajax({
-            type: 'GET',
-            url: 'http://localhost:8080/api/org/all',
-            success: function (data, status) {
-                $.each(data, function (index, item) {
-                    var name = item.name
-                    var id = item.id
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8080/api/org/all',
+        success: function (data, status) {
+            $.each(data, function (index, item) {
+                var name = item.name
+                var id = item.id
 
-                    var option = $(`<option class="org" value=${id} >${name}</option>`);
+                var option = $(`<option class="org" value=${id} >${name}</option>`);
 
-                    $('#orgs').append(option);
-                });
-            }
-        })
-    }
+                $('#orgs').append(option);
+            });
+        }
+    })
+}
 

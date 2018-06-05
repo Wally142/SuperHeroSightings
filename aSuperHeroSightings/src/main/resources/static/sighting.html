@@ -33,7 +33,7 @@
     <h1 class="text-center">Superhero and Villain Sightings!</h1>
 
     <br>
-    <div class="container">
+    <div class="container text-center">
 
         <div class="container">
 
@@ -54,17 +54,20 @@
         
         <div class="form-group">
             <label for="time">Date and Time</label>
-            <input type="datetime-local" id="datetime" class="form-control">
+            <input class="date" type="datetime-local" id="datetime" class="form-control">
         </div>
 
         <button id="sight" class="btn btn-primary">Add Sighting</button>
     </div>
+    <br>
+    <div id="map"></div>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="/js/sighting.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAyvgq0r1mkdofz3GLi70qfmyCt_ASLi0&callback=initMap" async defer></script>
 </body>
-
+ <!-- var apiKey = AIzaSyByHrNDRIleQRvJZ_6JUMn - NwNehXwbF84 -->
 </html>
