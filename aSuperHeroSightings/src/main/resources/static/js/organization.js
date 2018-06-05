@@ -13,13 +13,111 @@ function loadOrganizations() {
                 var id = item.id
                 console.log(name);
 
-                var option = $(`<div class="loc" value=${id}></div>`);
-                option.append(name)
-                option.append(desc)
-                option.append(location)
+                var div = $('<div></div>');
+                var link = $(`<a class="showOne" data-id=${id} href="#">${name}<a>`)
+                div.append(link);
 
-                $('#organization').append(option);
+                $('#organization').append(div);
+
+                $(link).on("click", function () {
+                    var dat = $(this).data('id');
+                    getHero(dat);
+                })
             });
+        }
+    })
+}
+
+function getHero(dat) {
+    $('#organization').empty();
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8080/api/org/' + dat,
+        success: function (data, status) {
+
+            console.log(data)
+
+            var name = data.name
+            var id = data.id
+            var desc = data.description
+            var location = data.location
+
+            var orgDiv = $('<div></div>');
+            orgDiv.append(name)
+            orgDiv.append(desc)
+            orgDiv.append(location)
+            $('#organization').append(orgDiv);
+            $('#organization').append(`<a class="btn btn-primary" href="organization.html">Back to Organizations</a>`)
+            $('#organization').append(`<a id="edit" class="btn btn-primary" href="#">Edit Organization</a>`)
+            $('#organization').append(`<a id="deleteOrg" class="btn btn-primary" href="#">Delete Organization</a>`)
+            $('#addOrg').hide();
+            $('#edit').on('click', function () {
+                edit(data)
+            })
+            $('#deleteOrg').on('click', function () {
+                deleteOrg(id)
+            })
+
+        }
+    })
+};// end get Org
+
+function deleteOrg(id) {
+    $.ajax({
+        type: 'DELETE',
+        url: "http://localhost:8080/api/org/" + id,
+        success: function (status) {
+            loadOrganizations();
+            $('#addOrg').show();
+        }
+    });
+}
+
+function edit(data) {
+    $('#organization').empty();
+    $('#organization').append('<input type="text" id="name" placeholder="Organization Name"><br>')
+    $('#organization').append('<input type="text" id="desc" placeholder="Description"><br>')
+    $('#organization').append('<input type="text" id="head" placeholder="Headquarters"><br>')
+    $('#organization').append(`<a id="editOrg" class="btn btn-primary" href="#">Edit Organization</a>`)
+   
+    $('#name').val(data.name);
+    $('#desc').val(data.description);
+    $('#head').val(data.location);
+    var id = data.id;
+    $('#editOrg').on("click", function () {
+        editOrganization(id);
+    })
+}
+
+function editOrganization(id) {
+
+    console.log(id)
+    var name = $('#name').val()
+    var desc = $('#desc').val()
+    var location = $('#head').val()
+
+    $.ajax({
+        type: 'PUT',
+        url: 'http://localhost:8080/api/org/' + id,
+        data: JSON.stringify({
+            id: id,
+            name: name,
+            description: desc,
+            location: location
+        }),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        'dataType': 'json'
+    }).always(function (xhr) {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            console.log('successful update!');
+            $('#organization').empty();
+            loadOrganizations();
+            $('#addOrg').show();
+        } else {
+            console.log('failed Edit Attempt')
         }
     })
 }

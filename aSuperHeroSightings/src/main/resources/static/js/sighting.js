@@ -1,17 +1,15 @@
-loadLocations();
 loadHeroes();
+var myLatLng = {};
+var map;
 
-// var map;
 function initMap() {
-    var map = new google.maps.Map(document.getElementById('map'), {
+
+    map = new google.maps.Map(document.getElementById('map'), {
         zoom: 2,
-        center: new google.maps.LatLng(2.8, -187.3),
+        center: new google.maps.LatLng(36.100000, 115.120000),
         mapTypeId: 'terrain'
     });
-}
 
-function loadLocations() {
-    $('#location').empty();
     $.ajax({
         type: 'GET',
         url: 'http://localhost:8080/api/location/all',
@@ -19,13 +17,25 @@ function loadLocations() {
             $.each(data, function (index, item) {
                 var name = `${item.city} ${item.country}`
                 var id = item.id
-                var lat = item.latitude;
-                var lng = item.longitude;
-                var option = $(`<option class="loc" value=${id} >${name}</option>`);
-                $('#location').append(option);
+                var coordinateA = item.latitude;
+                var coordinateB = item.longitude;
 
-                
+                myLatLng = { lat: coordinateA, lng: coordinateB };
 
+                var contentString = `More Superhero Action Spotted In ${name}!!`
+
+                var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map
+                });
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: contentString
+                });
+
+                marker.addListener('click', function () {
+                    infowindow.open(map, marker);
+                });
 
             });
         }
@@ -43,10 +53,7 @@ function loadHeroes() {
                 var id = item.id
 
                 var option = $(`<option class="heroes" value=${id} >${name}</option>`);
-
                 $('#hero').append(option);
-
-                
             });
         }
     })
@@ -54,18 +61,19 @@ function loadHeroes() {
 
 $('#sight').click(function () {
 
-    var id = $('#location').val();
-    var sight = $('#datetime').val();
-    var heroId = $('#hero').val();
-    console.log(id);
-    console.log(sight);
+    var lat = $('#lat').val();
+    var lng = $('#lng').val();
+    var city = $('#city').val();
+    var country = $('#country').val();
 
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:8080/api/sighting/add',
+        url: 'http://localhost:8080/api/location/add',
         data: JSON.stringify({
-            locationId: id,
-            sighted: sight
+            latitude: lat,
+            longitude: lng,
+            city: city,
+            country: country
 
         }),
         headers: {
@@ -74,55 +82,48 @@ $('#sight').click(function () {
         },
         dataType: 'json',
         success: function (data) {
-            console.log('Successfully posted in sighted table');
-            var sightId = data.id;
-            console.log(data)
+            console.log('Successfully posted in location table');
+            var sight = $('#datetime').val();
+            var heroId = $('#hero').val();
+            var id = data.id;
+            console.log(id);
+
             $.ajax({
+                type: 'POST',
+                url: 'http://localhost:8080/api/sighting/add',
+                data: JSON.stringify({
+                    locationId: id,
+                    sighted: sight
 
-                type: 'GET',
-                url: 'http://localhost:8080/api/bridge/hero/' + heroId + '/' + sightId,
-                success: function (data) {
-                    console.log('Successfully posted in hero_sighted table');
-                    console.log(heroId);
-                    console.log(sightId);
-
+                }),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                error: function () {
-                    console.log('try again :(');
+                dataType: 'json',
+                success: function (data) {
+                    console.log('Successfully posted in sighted table');
+                    var sightId = data.id;
+                    console.log(data)
+                    $.ajax({
+
+                        type: 'GET',
+                        url: 'http://localhost:8080/api/bridge/hero/' + heroId + '/' + sightId,
+                        success: function (data) {
+                            console.log('Successfully posted in hero_sighted table');
+                            console.log(heroId);
+                            console.log(sightId);
+                            window.location.replace("sighting.html");
+                        },
+                        error: function () {
+                            console.log('Error in Bridge-Hero');
+                        }
+                    });
                 }
             });
-
         },
         error: function () {
-            console.log('try again :(');
+            console.log('Error in Site Add or Location Add');
         }
-
     });
 });
-
-
-
-
-
-
-// // Create a <script> tag and set the USGS URL as the source.
-// var script = document.createElement('script');
-// // This example uses a local copy of the GeoJSON stored at
-// http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp
-// script.src = 'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js';
-// document.getElementsByTagName('head')[0].appendChild(script);
-
-// Loop through the results array and place a marker for each
-// set of coordinates.
-// window.eqfeed_callback = function (results) {
-//     for (var i = 0; i < results.features.length; i++) {
-//         var coords = results.features[i].geometry.coordinates;
-//         var latLng = new google.maps.LatLng(coords[1], coords[0]);
-//         var marker = new google.maps.Marker({
-//             position: latLng,
-//             map: map
-//         });
-//     }
-// }
-
-

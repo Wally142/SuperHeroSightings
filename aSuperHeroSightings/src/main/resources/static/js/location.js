@@ -68,7 +68,7 @@ function deleteLocation(id) {
         url: "http://localhost:8080/api/location/" + id,
         success: function (status) {
             loadLocations();
-            window.location.replace("location.html");
+            // window.location.replace("location.html");
         }
     });
 }
