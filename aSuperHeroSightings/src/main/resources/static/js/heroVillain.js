@@ -59,9 +59,42 @@ function getHero(dat) {
             $('#deleteHero').on('click', function () {
                 deleteHero(id)
             })
-
         }
     })
+
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8080/api/bridge/powers/' + dat,
+        success: function (data, status) {
+            $.each(data, function (index, item) {
+                var name = item.power.name
+                var id = item.id
+
+                var div = $('<div></div>');
+                var link = $(`<p class="powers" data-id=${id} href="#">${name}<p>`)
+                div.append(link);
+                $('#heroes').append(div);
+
+            });
+        }
+    })// end hero powers ajax
+
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8080/api/bridge/organization/' + dat,
+        success: function (data, status) {
+            $.each(data, function (index, item) {
+                var name = item.org.name
+                var id = item.id
+
+                var div = $('<div></div>');
+                var link = $(`<p class="powers" data-id=${id} href="#">${name}<p>`)
+                div.append(link);
+                $('#heroes').append(div);
+
+            });
+        }
+    })// end hero organization ajax
 };// end get Hero
 
 $('#addHeroPage').on("click", heroInput);
@@ -104,23 +137,21 @@ function addHero() {
         dataType: 'json',
         success: function (data) {
             console.log('Successfully posted in hero table');
+            var powersId = $('#powers').val();
+            var orgId = $('#orgs').val();
+            var heroId = data.id;
             $('#heroes').empty();
             loadHeroes();
             $('#addHeroPage').show();
 
             $.ajax({
-                type: 'POST',
-                url: 'http://localhost:8080/api/hero/powers/',
-                data: JSON.stringify({
-                    hero_id: powers
-                }),
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                dataType: 'json',
+
+                type: 'GET',
+                url: 'http://localhost:8080/api/bridge/power/' + heroId + '/' + powersId,
                 success: function (data) {
-                    console.log('Successfully posted in hero_powers table');
+                    console.log('Successfully posted in hero_power table');
+                    console.log(heroId);
+                    console.log(powersId);
 
                 },
                 error: function () {
@@ -128,11 +159,22 @@ function addHero() {
                 }
             });
 
-        },
-        error: function () {
-            console.log('try again :(');
+            $.ajax({
+
+                type: 'GET',
+                url: 'http://localhost:8080/api/bridge/org/' + heroId + '/' + orgId,
+                success: function (data) {
+                    console.log('Successfully posted in hero_ORG table');
+                    console.log(heroId);
+                    console.log(orgId);
+
+                },
+                error: function () {
+                    console.log('try again :(');
+                }
+            });
         }
-    }); // end first ajax call
+    });
 }
 
 function deleteHero(id) {
@@ -263,6 +305,40 @@ function getVillain(dat) {
             })
         }
     })
+
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8080/api/bridge/powers/' + dat,
+        success: function (data, status) {
+            $.each(data, function (index, item) {
+                var name = item.power.name
+                var id = item.id
+
+                var div = $('<div></div>');
+                var link = $(`<p class="powers" data-id=${id} href="#">${name}<p>`)
+                div.append(link);
+                $('#villains').append(div);
+
+            });
+        }
+    })// end villain powers ajax
+
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8080/api/bridge/organization/' + dat,
+        success: function (data, status) {
+            $.each(data, function (index, item) {
+                var name = item.org.name
+                var id = item.id
+
+                var div = $('<div></div>');
+                var link = $(`<p class="powers" data-id=${id} href="#">${name}<p>`)
+                div.append(link);
+                $('#villains').append(div);
+
+            });
+        }
+    })// end villain organization ajax
 };//get Villain
 
 $('#addVillainPage').on("click", villianInput);
@@ -307,9 +383,9 @@ function addVillain() {
         dataType: 'json',
         success: function (data) {
             var powersId = $('#powers').val();
+            var orgId = $('#orgs').val();
             console.log(powersId);
-            
-            // console.log('Successfully posted in hero table');
+
             $('#villains').empty();
             loadVillains();
             $('#addVillainPage').show();
@@ -320,9 +396,24 @@ function addVillain() {
                 type: 'GET',
                 url: 'http://localhost:8080/api/bridge/power/' + villainId + '/' + powersId,
                 success: function (data) {
-                    console.log('Successfully posted in hero_powers table');
+                    console.log('Successfully posted in hero_power table');
                     console.log(villainId);
                     console.log(powersId);
+
+                },
+                error: function () {
+                    console.log('try again :(');
+                }
+            });
+
+            $.ajax({
+
+                type: 'GET',
+                url: 'http://localhost:8080/api/bridge/org/' + villainId + '/' + orgId,
+                success: function (data) {
+                    console.log('Successfully posted in hero_ORG table');
+                    console.log(villainId);
+                    console.log(orgId);
 
                 },
                 error: function () {
@@ -336,7 +427,6 @@ function addVillain() {
         }
 
     });
-
 }
 
 function deleteVillain(id) {
@@ -443,4 +533,3 @@ function loadOrgs() {
         }
     })
 }
-

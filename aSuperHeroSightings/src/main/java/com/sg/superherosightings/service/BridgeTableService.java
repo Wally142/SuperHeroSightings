@@ -1,6 +1,8 @@
 package com.sg.superherosightings.service;
 
 import com.sg.superherosightings.data.BridgeDao;
+import com.sg.superherosightings.models.HeroOrganization;
+import com.sg.superherosightings.models.HeroPower;
 import com.sg.superherosightings.models.HeroSighting;
 import java.util.List;
 import java.util.Set;
@@ -20,6 +22,14 @@ public class BridgeTableService {
         return dao.showRecentSightings();
     }
     
+    public List<HeroPower> getAllPowers(int heroId) {
+        return dao.allHeroPowers(heroId);
+    }
+
+    public List<HeroOrganization> getAllOrganizations(int orgId) {
+        return dao.allHeroOrganizations(orgId);
+    }
+    
      public Result<Integer> saveHeroPower(int heroId, int powers) {
          Result<Integer> result = validate(heroId, powers);
         if (result.isSuccess()) {
@@ -33,6 +43,14 @@ public class BridgeTableService {
         Result<Integer> result = validate(hero, sighting);
         if (result.isSuccess()) {
             dao.heroSighting(hero, sighting);
+        }
+        return result;
+    }
+    
+     public Result<Integer> saveHeroOrg(int heroId, int orgId) {
+        Result<Integer> result = validate(heroId, orgId);
+        if (result.isSuccess()) {
+            dao.heroOrganization(heroId, orgId);
         }
         return result;
     }
