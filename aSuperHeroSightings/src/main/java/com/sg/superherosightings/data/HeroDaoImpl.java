@@ -43,10 +43,11 @@ public class HeroDaoImpl implements HeroDao {
     @Override
     public Hero addHero(Hero hero) {
         jt.update(
-                "INSERT INTO hero (name, description, city, villain) VALUES (?, ?, ?, ?);",
+                "INSERT INTO hero (name, description, city, image, villain) VALUES (?, ?, ?, ?, ?);",
                 hero.getName(),
                 hero.getDescription(),
                 hero.getCity(),
+                hero.getImage(),
                 hero.isVillain()
         );
 
@@ -106,6 +107,7 @@ public class HeroDaoImpl implements HeroDao {
             h.setName(rs.getString("name"));
             h.setDescription(rs.getString("description"));
             h.setCity(rs.getString("city"));
+            h.setImage(rs.getString("image"));
             h.setVillain(rs.getBoolean("villain"));
 
             return h;

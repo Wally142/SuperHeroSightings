@@ -21,4 +21,6 @@ public interface BridgeDao {
     
     public List<HeroOrganization> allHeroOrganizations(int id);
     
+    public List<HeroOrganization> AllOrganizationMembers(int id);
+    
 }

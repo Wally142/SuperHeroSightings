@@ -21,14 +21,14 @@ function loadOrganizations() {
 
                 $(link).on("click", function () {
                     var dat = $(this).data('id');
-                    getHero(dat);
+                    getOrg(dat);
                 })
             });
         }
     })
 }
 
-function getHero(dat) {
+function getOrg(dat) {
     $('#organization').empty();
     $.ajax({
         type: 'GET',
@@ -57,9 +57,28 @@ function getHero(dat) {
             $('#deleteOrg').on('click', function () {
                 deleteOrg(id)
             })
-
+            
         }
     })
+
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8080/api/bridge/orgmembers/' + dat,
+        success: function (data, status) {
+            $.each(data, function (index, item) {
+                var name = item.org.name
+                var id = item.id
+
+                console.log(item)
+
+                var div = $('<div></div>');
+                var link = $(`<p class="orgs" data-id=${id} href="#">${name}<p>`)
+                div.append(link);
+                $('#organization').append(div);
+
+            });
+        }
+    })// end hero org ajax
 };// end get Org
 
 function deleteOrg(id) {
@@ -79,7 +98,7 @@ function edit(data) {
     $('#organization').append('<input type="text" id="desc" placeholder="Description"><br>')
     $('#organization').append('<input type="text" id="head" placeholder="Headquarters"><br>')
     $('#organization').append(`<a id="editOrg" class="btn btn-primary" href="#">Edit Organization</a>`)
-   
+
     $('#name').val(data.name);
     $('#desc').val(data.description);
     $('#head').val(data.location);

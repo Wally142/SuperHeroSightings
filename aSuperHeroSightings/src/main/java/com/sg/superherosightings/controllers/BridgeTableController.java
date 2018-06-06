@@ -32,6 +32,11 @@ public class BridgeTableController {
         return service.getAllOrganizations(orgId);
     }
     
+    @GetMapping("/orgmembers/{orgId}")
+    public List<HeroOrganization> getAllMembers(@PathVariable int orgId) {
+        return service.getAllMembers(orgId);
+    }
+    
     @GetMapping("/sighting")
     public List<HeroSighting> getAllSightings() {
         return service.getAllSightings();

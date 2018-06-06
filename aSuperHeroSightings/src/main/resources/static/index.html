@@ -32,11 +32,35 @@
     </ul>
 
     <h1 class="text-center"> Welcome To Super Hero Sightings</h1>
-
-    <div class="jumbotron text-center" id="sightings">
     
+    <br>
+
+    <div id="demo" class="carousel slide" data-ride="carousel">
+
+        <!-- Indicators -->
+        <ul id="indicator" class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+
+        </ul>
+
+        <!-- The slideshow -->
+        <div id="heroSlide" class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="news.jpg" alt="News Flash!">
+            </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
     </div>
-       
+
+    <br>
+    <br>
     <div class="text-center">
         <img src="heroes.jpg">
     </div>
@@ -44,7 +68,7 @@
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="/js/index.js"></script>
 </body>
 

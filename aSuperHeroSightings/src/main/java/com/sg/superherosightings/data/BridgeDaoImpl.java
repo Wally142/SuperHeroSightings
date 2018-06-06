@@ -67,7 +67,9 @@ public class BridgeDaoImpl implements BridgeDao {
                 + "from hero_sighting hs\n"
                 + "Inner Join hero h on h.id = hs.hero_id\n"
                 + "Inner Join sighting s on s.id = hs.sighting_id\n"
-                + "Inner Join location l  on l.id = s.locationId;", new HeroSightMapper());
+                + "Inner Join location l  on l.id = s.locationId\n"
+                + "order by s.sighted\n"
+                + "limit 10;", new HeroSightMapper());
     }
 
     @Override
@@ -86,6 +88,15 @@ public class BridgeDaoImpl implements BridgeDao {
                 + "Inner Join hero h on h.id = ho.hero_id\n"
                 + "Inner Join organization o on o.id = ho.organization_id\n"
                 + "where h.id = ?;", new HeroOrganizationMapper(), heroId);
+    }
+
+    @Override
+    public List<HeroOrganization> AllOrganizationMembers(int orgId) {
+        return jt.query("select  h.name\n"
+                + "from hero_organization ho\n"
+                + "Inner Join hero h on h.id = ho.hero_id\n"
+                + "Inner Join organization o on o.id = ho.organization_id\n"
+                + "where o.id = ?;", new HeroOrganizationMapper(), orgId);
     }
 
     private static final class HeroSightMapper implements RowMapper<HeroSighting> {

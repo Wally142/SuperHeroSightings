@@ -12,16 +12,21 @@ function loadSightings() {
                 var city = item.location.city
                 var country = item.location.country
                 var sighted = item.sight.sighted
+                var image = 'https://i.annihil.us/u/prod/marvel/i/mg/6/60/538cd3628a05e.jpg'
                 var id = item.id;
                 console.log(name);
 
-                var div = $(`<div class="loc" value=${id}></div>`);
-                div.append(name)
-                div.append(city)
-                div.append(country)
-                div.append(sighted)
+               
+                var indicator = `<li data-target="#demo" data-slide-to=${id}></li>`
+                var heroSlide = `<div class="carousel-item"><img src=${image} alt=${name}></div>`
+                
+                // append(name)
+                // append(city)
+                // append(country)
+                // append(sighted)
 
-                $('#sightings').append(div);
+                $('#indicator').append(indicator);
+                $('#heroSlide').append(heroSlide);
             });
         }
     })

@@ -43,8 +43,12 @@ function getHero(dat) {
             var id = data.id
             var heroDesc = data.description
             var heroCity = data.city
+            var image = data.image;
 
-            var heroDiv = $('<div class="col-6"</div>');
+            console.log(image)
+
+            var heroDiv = $('<div></div>');
+            heroDiv.append(`<img class="heroImg" src=${image}>`)
             heroDiv.append(heroName)
             heroDiv.append(heroDesc)
             heroDiv.append(heroCity)
@@ -105,6 +109,7 @@ function heroInput() {
     $('#heroes').append('<input type="text" id="name" placeholder="Hero Name"><br>')
     $('#heroes').append('<input type="text" id="desc" placeholder="Description"><br>')
     $('#heroes').append('<input type="text" id="city" placeholder="City/Home"><br>')
+    $('#heroes').append('<input type="text" value="https://www." id="pic" placeholder="URL Image"><br>')
     $('#heroes').append('<select id="powers"><br>')
     $('#heroes').append('<select id="orgs"><br>')
     $('#heroes').append('<button id="add" class="btn btn-primary">Submit</button>')
@@ -120,7 +125,7 @@ function addHero() {
     var name = $('#name').val()
     var desc = $('#desc').val()
     var city = $('#city').val()
-    var powers = $('#powers').val()
+    var image = $('#pic').val()
 
     $.ajax({
         type: 'POST',
@@ -128,7 +133,8 @@ function addHero() {
         data: JSON.stringify({
             name: name,
             description: desc,
-            city: city
+            city: city,
+            image: image
         }),
         headers: {
             'Accept': 'application/json',

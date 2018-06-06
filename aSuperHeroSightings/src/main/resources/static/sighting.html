@@ -39,9 +39,9 @@
 
             <br>
 
-            <div class="dropdown">
-                <label>Who Did You See?</label>
-                <select id="hero"></select>
+            <div class="form-group">
+                <label for="hero">Who Did You See:</label>
+                <select class="form-control sightDrop" id="hero"></select>
             </div>
         </div>
 
@@ -73,8 +73,10 @@
             <label for="time">Date and Time</label>
             <input class="date" type="datetime-local" id="datetime" class="form-control">
         </div>
-
-        <button id="sight" class="btn btn-primary">Add Sighting</button>
+        <div>
+            <button id="sight" class="btn btn-primary">Add Sighting</button>
+            <a target="_blank" class="btn btn-default" href="https://www.latlong.net/">Find Coordinates</a>
+        </div>
     </div>
     <br>
     <div id="map"></div>

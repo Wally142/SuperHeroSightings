@@ -30,6 +30,10 @@ public class BridgeTableService {
         return dao.allHeroOrganizations(orgId);
     }
     
+    public List<HeroOrganization> getAllMembers(int orgId) {
+        return dao.AllOrganizationMembers(orgId);
+    }
+    
      public Result<Integer> saveHeroPower(int heroId, int powers) {
          Result<Integer> result = validate(heroId, powers);
         if (result.isSuccess()) {
