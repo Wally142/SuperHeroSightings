@@ -31,30 +31,30 @@
         </li>
     </ul>
 
-    <h1 class="text-center"> Welcome To Super Hero Sightings</h1>
-    
+    <h1 class="text-center"> The Daily Superhero</h1>
+
     <br>
 
-    <div id="demo" class="carousel slide" data-ride="carousel">
+    <div id="heroCarousel" class="carousel slide" data-ride="carousel" data-interval="2500">
 
         <!-- Indicators -->
-        <ul id="indicator" class="carousel-indicators">
-            <li data-target="#demo" data-slide-to="0" class="active"></li>
+        <ol id="indicator" class="carousel-indicators">
+            <li data-target="#heroCarousel" data-slide-to="0" class="active"></li>
 
-        </ul>
+        </ol>
 
         <!-- The slideshow -->
         <div id="heroSlide" class="carousel-inner">
             <div class="carousel-item active">
-                <img src="news.jpg" alt="News Flash!">
+                <img src="images/news.jpg" alt="News Flash!">
             </div>
         </div>
 
         <!-- Left and right controls -->
-        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+        <a class="carousel-control-prev" href="#heroCarousel" data-slide="prev">
             <span class="carousel-control-prev-icon"></span>
         </a>
-        <a class="carousel-control-next" href="#demo" data-slide="next">
+        <a class="carousel-control-next" href="#heroCarousel" data-slide="next">
             <span class="carousel-control-next-icon"></span>
         </a>
     </div>
@@ -62,14 +62,17 @@
     <br>
     <br>
     <div class="text-center">
-        <img src="heroes.jpg">
+        <img src="images/heroes.jpg">
     </div>
-
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="/js/index.js"></script>
+    <script type="text/javascript"> 
+        (function () {
+            $("#main-slider").carousel();
+        })(); 
+    </script>
 </body>
 
 </html>

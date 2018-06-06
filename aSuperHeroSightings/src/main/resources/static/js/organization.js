@@ -11,10 +11,9 @@ function loadOrganizations() {
                 var desc = item.description
                 var location = item.location
                 var id = item.id
-                console.log(name);
 
                 var div = $('<div></div>');
-                var link = $(`<a class="showOne" data-id=${id} href="#">${name}<a>`)
+                var link = $(`<a class="showHeroes" data-id=${id} href="#">${name}<a>`)
                 div.append(link);
 
                 $('#organization').append(div);
@@ -34,8 +33,6 @@ function getOrg(dat) {
         type: 'GET',
         url: 'http://localhost:8080/api/org/' + dat,
         success: function (data, status) {
-
-            console.log(data)
 
             var name = data.name
             var id = data.id
@@ -57,7 +54,7 @@ function getOrg(dat) {
             $('#deleteOrg').on('click', function () {
                 deleteOrg(id)
             })
-            
+
         }
     })
 
@@ -186,13 +183,4 @@ function addOrg() {
             console.log('try again :(');
         }
     });
-
 }
-
-
-
-
-
-
-
-

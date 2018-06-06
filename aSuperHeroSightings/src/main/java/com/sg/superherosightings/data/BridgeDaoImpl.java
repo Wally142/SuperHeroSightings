@@ -63,12 +63,12 @@ public class BridgeDaoImpl implements BridgeDao {
 
     @Override
     public List<HeroSighting> showRecentSightings() {
-        return jt.query("select  h.name, l.city, l.country , s.sighted\n"
+        return jt.query("select h.id,  h.name, h.image, l.city, l.country , s.sighted\n"
                 + "from hero_sighting hs\n"
                 + "Inner Join hero h on h.id = hs.hero_id\n"
                 + "Inner Join sighting s on s.id = hs.sighting_id\n"
                 + "Inner Join location l  on l.id = s.locationId\n"
-                + "order by s.sighted\n"
+                + "order by s.sighted DESC\n"
                 + "limit 10;", new HeroSightMapper());
     }
 
@@ -109,7 +109,9 @@ public class BridgeDaoImpl implements BridgeDao {
             Location l = new Location();
             Sighting s = new Sighting();
 
+            h.setId((rs.getInt("id")));
             h.setName((rs.getString("name")));
+            h.setImage((rs.getString("image")));
             hs.setHero(h);
 
             l.setCity((rs.getString("city")));

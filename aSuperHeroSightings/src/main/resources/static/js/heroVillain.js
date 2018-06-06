@@ -12,11 +12,9 @@ function loadHeroes() {
             $.each(data, function (index, item) {
                 var name = item.name
                 var id = item.id
-                var desc = item.description
-                var city = item.city
 
                 var div = $('<div></div>');
-                var link = $(`<a class="showOne" data-id=${id} href="#">${name}<a>`)
+                var link = $(`<a class="showHeroes" data-id=${id} href="#">${name}<a>`)
                 div.append(link);
 
                 $('#heroes').append(div);
@@ -37,26 +35,25 @@ function getHero(dat) {
         url: 'http://localhost:8080/api/hero/' + dat,
         success: function (data, status) {
 
-            console.log(data)
-
             var heroName = data.name
             var id = data.id
             var heroDesc = data.description
             var heroCity = data.city
             var image = data.image;
 
-            console.log(image)
-
-            var heroDiv = $('<div></div>');
-            heroDiv.append(`<img class="heroImg" src=${image}>`)
-            heroDiv.append(heroName)
-            heroDiv.append(heroDesc)
-            heroDiv.append(heroCity)
-            $('#heroes').append(heroDiv);
-            $('#heroes').append(`<a class="btn btn-primary" href="heroes.html">Back to Heroes</a>`)
-            $('#heroes').append(`<a id="editHero" class="btn btn-primary" href="#">Edit Hero</a>`)
-            $('#heroes').append(`<a id="deleteHero" class="btn btn-primary" href="#">Delete Hero</a>`)
             $('#addHeroPage').hide();
+            $('#heroPic').hide();
+            $('#heroes').append(`<img class="heroImg" src=${image}>`);
+            var heroDiv = $('<div></div>');
+            heroDiv.append(`<h3>${heroName}</h3>`)
+            heroDiv.append(`<h5>${heroCity}</h5>`)
+            heroDiv.append(`<h5>${heroDesc}</h5>`)
+            heroDiv.append(`<a class="one space btn btn-primary" href="heroes.html">Back to Heroes</a>`)
+            heroDiv.append(`<a id="deleteHero" class="one space btn btn-danger" href="#">Delete Hero</a>`)
+            heroDiv.append(`<a id="editHero" class="one btn btn-primary" href="#">Edit Hero</a>`)
+
+            $('#heroes').append(heroDiv)
+
             $('#editHero').on('click', function () {
                 edit(data)
             })
@@ -75,7 +72,7 @@ function getHero(dat) {
                 var id = item.id
 
                 var div = $('<div></div>');
-                var link = $(`<p class="powers" data-id=${id} href="#">${name}<p>`)
+                var link = $(`<h5 class="powers" data-id=${id} href="#">${name}</h5>`)
                 div.append(link);
                 $('#heroes').append(div);
 
@@ -92,7 +89,7 @@ function getHero(dat) {
                 var id = item.id
 
                 var div = $('<div></div>');
-                var link = $(`<p class="powers" data-id=${id} href="#">${name}<p>`)
+                var link = $(`<h5 class="powers" data-id=${id} href="#">${name}</h5>`)
                 div.append(link);
                 $('#heroes').append(div);
 
@@ -106,14 +103,15 @@ $('#addHeroPage').on("click", heroInput);
 function heroInput() {
 
     $('#heroes').empty();
-    $('#heroes').append('<input type="text" id="name" placeholder="Hero Name"><br>')
-    $('#heroes').append('<input type="text" id="desc" placeholder="Description"><br>')
-    $('#heroes').append('<input type="text" id="city" placeholder="City/Home"><br>')
-    $('#heroes').append('<input type="text" value="https://www." id="pic" placeholder="URL Image"><br>')
+    $('#heroes').append('<input type="text" id="name" class="form-control" placeholder="Hero Name"><br>')
+    $('#heroes').append('<input type="text" id="desc" class="form-control" placeholder="Description"><br>')
+    $('#heroes').append('<input type="text" id="city" class="form-control" placeholder="City/Home"><br>')
+    $('#heroes').append('<input type="text" id="pic"  class="form-control" placeholder="URL Image"><br>')
     $('#heroes').append('<select id="powers"><br>')
     $('#heroes').append('<select id="orgs"><br>')
-    $('#heroes').append('<button id="add" class="btn btn-primary">Submit</button>')
-    $('#heroes').append('<a class="btn btn-danger" href="/heroes.html">Back</button>')
+    $('#heroes').append('<a class="one btn btn-danger" href="/heroes.html">Back</button>')
+    $('#heroes').append('<button id="add" class="one btn btn-primary">Submit</button>')
+
     $('#addHeroPage').hide();
     $('#add').on("click", addHero);
     loadPowers();
@@ -196,17 +194,22 @@ function deleteHero(id) {
 
 function edit(data) {
     $('#heroes').empty();
-    $('#heroes').append('<input type="text" id="name" placeholder="Hero Name"><br>')
-    $('#heroes').append('<input type="text" id="desc" placeholder="Description"><br>')
-    $('#heroes').append('<input type="text" id="city" placeholder="City/Home"><br>')
+    $('#heroes').append('<input type="text" id="name" class="form-control" placeholder="Hero Name"><br>')
+    $('#heroes').append('<input type="text" id="desc" class="form-control" placeholder="Description"><br>')
+    $('#heroes').append('<input type="text" id="city" class="form-control" placeholder="City/Home"><br>')
+    $('#heroes').append('<input type="text" id="pic" class="form-control" placeholder="URL Image"><br>')
     $('#heroes').append('<select id="powers"><br>')
     $('#heroes').append('<select id="orgs"><br>')
-    $('#heroes').append(`<a id="edit" class="btn btn-primary" href="#">Edit Hero</a>`)
+    $('#heroes').append('<a class="one btn btn-danger" href="/heroes.html">Back</button>')
+    $('#heroes').append(`<a id="edit" class="one btn btn-primary" href="#">Edit Hero</a>`)
+    $('#heroes').append(`<img src="images/edithero.png">`)
+
     loadPowers();
     loadOrgs();
     var name = $('#name').val(data.name)
     var desc = $('#desc').val(data.description)
     var city = $('#city').val(data.city)
+    var image = $("#pic").val(data.image)
     var id = data.id;
     $('#edit').on("click", function () {
         editHero(id);
@@ -219,6 +222,7 @@ function editHero(id) {
     var name = $('#name').val()
     var desc = $('#desc').val()
     var city = $('#city').val()
+    var image = $("#pic").val()
 
     $.ajax({
         type: 'PUT',
@@ -227,7 +231,8 @@ function editHero(id) {
             id: id,
             name: name,
             description: desc,
-            city: city
+            city: city,
+            image: image
         }),
         headers: {
             'Accept': 'application/json',
@@ -266,7 +271,7 @@ function loadVillains() {
 
 
                 var div = $('<div></div>');
-                var link = $(`<a class="showOne" data-id=${id} href="#">${name}<a>`)
+                var link = $(`<a class="showHeroes" data-id=${id} href="#">${name}<a>`)
                 div.append(link);
 
                 $('#villains').append(div);
@@ -287,22 +292,25 @@ function getVillain(dat) {
         url: 'http://localhost:8080/api/hero/' + dat,
         success: function (data, status) {
 
-            console.log(data)
-            // console.log(item)
-            var heroName = data.name
+            var villName = data.name
             var id = data.id
-            var heroDesc = data.description
-            var heroCity = data.city
+            var villDesc = data.description
+            var villCity = data.city
+            var image = data.image;
 
-            var heroDiv = $('<div class="col-6"</div>');
-            heroDiv.append(heroName)
-            heroDiv.append(heroDesc)
-            heroDiv.append(heroCity)
-            $('#villains').append(heroDiv);
-            $('#villains').append(`<a class="btn btn-primary" href="villain.html">Back to Villains</a>`)
-            $('#villains').append(`<a id="editVillain" class="btn btn-primary" href="#">Edit Villain</a>`)
-            $('#villains').append(`<a id="deleteVillain" class="btn btn-primary" href="#">Delete Villain</a>`)
             $('#addVillainPage').hide();
+            $('#villainPic').hide();
+            $('#villains').append(`<img class="heroImg" src=${image}>`);
+            var villDiv = $('<div></div>');
+            villDiv.append(`<h3>${villName}</h3>`)
+            villDiv.append(`<h5>${villCity}</h5>`)
+            villDiv.append(`<h5>${villDesc}</h5>`)
+            villDiv.append(`<a class="one space btn btn-primary" href="villain.html">Back to Villains</a>`)
+            villDiv.append(`<a id="deleteVillain" class="one space btn btn-danger" href="#">Delete Villain</a>`)
+            villDiv.append(`<a id="editVillain" class="one btn btn-primary" href="#">Edit Villain</a>`)
+
+            $('#villains').append(villDiv)
+            
             $('#editVillain').on('click', function () {
                 editVil(data)
             })
@@ -321,7 +329,7 @@ function getVillain(dat) {
                 var id = item.id
 
                 var div = $('<div></div>');
-                var link = $(`<p class="powers" data-id=${id} href="#">${name}<p>`)
+                var link = $(`<h5 class="powers" data-id=${id} href="#">${name}</h5>`)
                 div.append(link);
                 $('#villains').append(div);
 
@@ -338,7 +346,7 @@ function getVillain(dat) {
                 var id = item.id
 
                 var div = $('<div></div>');
-                var link = $(`<p class="powers" data-id=${id} href="#">${name}<p>`)
+                var link = $(`<h5 class="orgs" data-id=${id} href="#">${name}</h5>`)
                 div.append(link);
                 $('#villains').append(div);
 
@@ -352,13 +360,15 @@ $('#addVillainPage').on("click", villianInput);
 function villianInput() {
 
     $('#villains').empty();
-    $('#villains').append('<input type="text" id="name" placeholder="Villain Name"><br>')
-    $('#villains').append('<input type="text" id="desc" placeholder="Description"><br>')
-    $('#villains').append('<input type="text" id="city" placeholder="City/Home"><br>')
+    $('#villains').append('<input class="form-control" type="text" id="name" placeholder="Villain Name"><br>')
+    $('#villains').append('<input class="form-control" type="text" id="desc" placeholder="Description"><br>')
+    $('#villains').append('<input class="form-control" type="text" id="city" placeholder="City/Home"><br>')
+    $('#villains').append('<input class="form-control" type="text" id="pic"  placeholder="URL Image"><br>')
     $('#villains').append('<select id="powers"><<br>')
     $('#villains').append('<select id="orgs"><br>')
-    $('#villains').append('<button id="add" class="btn btn-primary">Submit</button>')
-    $('#villains').append('<a class="btn btn-danger" href="/villain.html">Back</button>')
+    $('#villains').append('<a class="one btn btn-danger" href="/villain.html">Back</button>')
+    $('#villains').append('<button id="add" class="one btn btn-primary">Submit</button>')
+
     $('#addVillainPage').hide();
     $('#add').on("click", addVillain);
     loadPowers();
@@ -371,6 +381,7 @@ function addVillain() {
     var desc = $('#desc').val()
     var city = $('#city').val()
     var powers = $('#powers').val()
+    var image = $('#pic').val()
     var villain = true;
 
     $.ajax({
@@ -380,6 +391,7 @@ function addVillain() {
             name: name,
             description: desc,
             city: city,
+            image: image,
             villain: true
         }),
         headers: {
@@ -448,17 +460,23 @@ function deleteVillain(id) {
 
 function editVil(data) {
     $('#villains').empty();
-    $('#villains').append('<input type="text" id="name" placeholder="Villain Name"><br>')
-    $('#villains').append('<input type="text" id="desc" placeholder="Description"><br>')
-    $('#villains').append('<input type="text" id="city" placeholder="City/Home"><br>')
+    $('#villains').append('<input class="form-control" type="text" id="name" placeholder="Villain Name"><br>')
+    $('#villains').append('<input class="form-control" type="text" id="desc" placeholder="Description"><br>')
+    $('#villains').append('<input class="form-control" type="text" id="city" placeholder="City/Home"><br>')
+    $('#villains').append('<input class="form-control" type="text" id="pic"  placeholder="URL Image"><br>')
     $('#villains').append('<select id="powers"><br>')
     $('#villains').append('<select id="orgs"><br>')
-    $('#villains').append(`<a id="edit" class="btn btn-primary" href="#">Edit Villain</a>`)
+    $('#villains').append('<a class="one btn btn-danger" href="/villain.html">Back</button>')
+    $('#villains').append(`<a id="edit" class="one btn btn-primary" href="#">Edit Villain</a>`)
+    $('#villains').append(`<img src="images/villain2.png">`)
+
     loadPowers();
     loadOrgs();
+
     var name = $('#name').val(data.name)
     var desc = $('#desc').val(data.description)
     var city = $('#city').val(data.city)
+    var image = $('#pic').val(data.image)
     var id = data.id;
     $('#edit').on("click", function () {
         editVillain(id);
@@ -471,6 +489,7 @@ function editVillain(id) {
     var name = $('#name').val()
     var desc = $('#desc').val()
     var city = $('#city').val()
+    var image = $('#pic').val()
 
     $.ajax({
         type: 'PUT',
@@ -480,6 +499,7 @@ function editVillain(id) {
             name: name,
             description: desc,
             city: city,
+            image: image,
             villain: true
         }),
         headers: {

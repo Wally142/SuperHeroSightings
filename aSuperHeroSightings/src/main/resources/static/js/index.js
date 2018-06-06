@@ -12,22 +12,18 @@ function loadSightings() {
                 var city = item.location.city
                 var country = item.location.country
                 var sighted = item.sight.sighted
-                var image = 'https://i.annihil.us/u/prod/marvel/i/mg/6/60/538cd3628a05e.jpg'
-                var id = item.id;
-                console.log(name);
+                var image = item.hero.image
+                var id = item.hero.id;
+                var index = index;
+                console.log(index)
 
-               
-                var indicator = `<li data-target="#demo" data-slide-to=${id}></li>`
-                var heroSlide = `<div class="carousel-item"><img src=${image} alt=${name}></div>`
-                
-                // append(name)
-                // append(city)
-                // append(country)
-                // append(sighted)
 
-                $('#indicator').append(indicator);
-                $('#heroSlide').append(heroSlide);
+                $('#indicator').append(`<li data-target="#demo" data-slide-to=${id}></li>`);
+                $('#heroSlide').append(`<div id=${index} class="carousel-item"><img class="movepic" src=${image} alt=${name}></div>`);
+                $(`#${index}`).append(`<div id=${index} class="carousel-caption"></div>`)
+                $(`#${index}`).append(`<h3>${name} Sighting!</h3><p class="ptop">Near ${city}  ${country}</p>`)
             });
         }
     })
 }
+

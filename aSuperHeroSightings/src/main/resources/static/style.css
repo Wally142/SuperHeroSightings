@@ -20,6 +20,53 @@ img {
     text-align: center;
 }
 
-.carousel-inner img {
-  margin: auto;
+#heroCarousel {
+   text-align: center;
+  }
+
+  .ptop {
+      position: relative;
+      bottom: 12px;
+  }
+
+  .list {
+      background-color: rgb(255, 255, 255);
+  }
+ 
+  .showHeroes {
+    font-size: 18px;
+}
+
+#powers {
+    position: relative;
+    right: 50px;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 4px;
+    font-size: 20px;
+    background-color: white;
+    padding: 12px 20px 12px 40px;
+    width: 300px;
+}
+
+#orgs {
+    position: relative;
+    left: 50px;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 4px;
+    font-size: 20px;
+    background-color: white;
+    padding: 12px 20px 12px 40px;
+    width: 300px;
+}
+
+.one {
+    position: relative;
+    float: right;
+    bottom: 10px;
+}
+
+.space {
+    margin-left:5px;
 }
