@@ -17,11 +17,11 @@ public class BridgeTableService {
 
     @Autowired
     private BridgeDao dao;
-    
+
     public List<HeroSighting> getAllSightings() {
         return dao.showRecentSightings();
     }
-    
+
     public List<HeroPower> getAllPowers(int heroId) {
         return dao.allHeroPowers(heroId);
     }
@@ -29,18 +29,17 @@ public class BridgeTableService {
     public List<HeroOrganization> getAllOrganizations(int orgId) {
         return dao.allHeroOrganizations(orgId);
     }
-    
+
     public List<HeroOrganization> getAllMembers(int orgId) {
         return dao.AllOrganizationMembers(orgId);
     }
-    
-     public Result<Integer> saveHeroPower(int heroId, int powers) {
-         Result<Integer> result = validate(heroId, powers);
+
+    public Result<Integer> saveHeroPower(int heroId, HeroPower powers) {
+        Result<Integer> result = validate(heroId, 1);
         if (result.isSuccess()) {
             dao.heroPowers(heroId, powers);
         }
         return result;
-        
     }
 
     public Result<Integer> saveHeroSighting(int hero, int sighting) {
@@ -50,9 +49,9 @@ public class BridgeTableService {
         }
         return result;
     }
-    
-     public Result<Integer> saveHeroOrg(int heroId, int orgId) {
-        Result<Integer> result = validate(heroId, orgId);
+
+    public Result<Integer> saveHeroOrg(int heroId, HeroOrganization orgId) {
+        Result<Integer> result = validate(heroId, 1);
         if (result.isSuccess()) {
             dao.heroOrganization(heroId, orgId);
         }
@@ -69,6 +68,24 @@ public class BridgeTableService {
             result.addMessage(err.getMessage());
         }
 
+        return result;
+    }
+
+    public Result<Integer> editHeroPower(int heroId, HeroPower pow) {
+        
+        Result<Integer> result = validate(heroId, 1);
+        if (result.isSuccess()) {
+            dao.editHeroPowers(heroId, pow);
+        }
+        return result;
+    }
+
+    public Result<Integer> editHeroOrg(int heroId, HeroOrganization orgIds) {
+        
+        Result<Integer> result = validate(heroId, 1);
+        if (result.isSuccess()) {
+            dao.editHeroOrganization(heroId, orgIds);
+        }
         return result;
     }
 }

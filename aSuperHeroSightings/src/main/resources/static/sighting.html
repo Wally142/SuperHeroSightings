@@ -46,38 +46,42 @@
         </div>
 
         <br>
-
-        <div class="form-group">
-            <label for="lat">Latitude</label>
-            <input type="number" id="lat" class="form-control" step="any">
-        </div>
-
-
-        <div class="form-group">
-            <label for="lng">Longitude</label>
-            <input type="number" id="lng" class="form-control" step="any">
-        </div>
-
-        <div class="form-group">
-            <label for="city">City</label>
-            <input type="text" id="city" class="form-control">
-        </div>
+        <!-- <form onsubmit="return false"> -->
+            <div class="form-group">
+                <label for="lat">Latitude</label>
+                <input type="number" id="lat" class="form-control" step="any" required>
+            </div>
 
 
-        <div class="form-group">
-            <label for="country">Country</label>
-            <input type="text" id="country" class="form-control">
-        </div>
+            <div class="form-group">
+                <label for="lng">Longitude</label>
+                <input type="number" id="lng" class="form-control" step="any" required>
+            </div>
 
-        <div class="form-group">
-            <label for="time">Date and Time</label>
-            <input class="date" type="datetime-local" id="datetime" class="form-control">
-        </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" class="form-control" required>
+            </div>
+
+
+            <div class="form-group">
+                <label for="country">Country</label>
+                <input type="text" id="country" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="time">Date and Time</label>
+                <input class="date" type="datetime-local" id="datetime" class="form-control" required>
+            </div>
+            
+        
         <div>
             <button id="sight" class="btn btn-primary">Add Sighting</button>
             <a target="_blank" class="btn btn-default" href="https://www.latlong.net/">Find Coordinates</a>
         </div>
+<!-- </form> -->
     </div>
+
     <br>
     <div id="map"></div>
 
@@ -86,9 +90,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="/js/sighting.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAyvgq0r1mkdofz3GLi70qfmyCt_ASLi0&callback=initMap" async
         defer></script>
 </body>
-<!-- var apiKey = AIzaSyByHrNDRIleQRvJZ_6JUMn - NwNehXwbF84 -->
 
 </html>

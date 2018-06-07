@@ -39,19 +39,23 @@ function getOrg(dat) {
             var desc = data.description
             var location = data.location
 
-            var orgDiv = $('<div></div>');
-            orgDiv.append(name)
-            orgDiv.append(desc)
-            orgDiv.append(location)
-            $('#organization').append(orgDiv);
-            $('#organization').append(`<a class="btn btn-primary" href="organization.html">Back to Organizations</a>`)
-            $('#organization').append(`<a id="edit" class="btn btn-primary" href="#">Edit Organization</a>`)
-            $('#organization').append(`<a id="deleteOrg" class="btn btn-primary" href="#">Delete Organization</a>`)
             $('#addOrg').hide();
+            var orgDiv = $('<div></div>');
+            orgDiv.append(`<h3>${name}</h3>`)
+            orgDiv.append(`<h5>${location}</h5>`)
+            orgDiv.append(`<h5>${desc}</h5>`)
+            $('#organization').append(orgDiv);
+            $('#orgbtn').append(`<a class="space btn btn-primary" href="organization.html">Back to Organizations</a>`)
+            $('#orgbtn').append(`<a id="deleteOrg" class="space btn btn-danger" href="#">Delete Organization</a>`)
+            $('#orgbtn').append(`<a id="edit" class="space btn btn-primary" href="#">Edit Organization</a>`)
+            
+            
             $('#edit').on('click', function () {
+                $('#orgbtn').hide()
                 edit(data)
             })
             $('#deleteOrg').on('click', function () {
+                $('#orgbtn').hide()
                 deleteOrg(id)
             })
 
@@ -91,10 +95,13 @@ function deleteOrg(id) {
 
 function edit(data) {
     $('#organization').empty();
-    $('#organization').append('<input type="text" id="name" placeholder="Organization Name"><br>')
-    $('#organization').append('<input type="text" id="desc" placeholder="Description"><br>')
-    $('#organization').append('<input type="text" id="head" placeholder="Headquarters"><br>')
-    $('#organization').append(`<a id="editOrg" class="btn btn-primary" href="#">Edit Organization</a>`)
+    $('#orgPic').hide();
+    $('#organization').append('<div class="form-group"><input type="text" id="name" class="form-control" placeholder="Name"></div>')
+    $('#organization').append('<div class="form-group"><input type="text" id="desc" class="form-control" placeholder="Description"></div>')
+    $('#organization').append('<div class="form-group"><input type="text" id="head" class="form-control" placeholder="HeadQuarters"></div>')
+    $('#organization').append(`<a id="editOrg" class="space btn btn-primary" href="#">Edit Organization</a>`)
+    $('#organization').append('<a class="space btn btn-danger" href="/organization.html">Back</button>')
+    $('#organization').append(`<br><br><img src="images/legion.jpg">`)
 
     $('#name').val(data.name);
     $('#desc').val(data.description);

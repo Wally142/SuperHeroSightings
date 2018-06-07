@@ -8,5 +8,6 @@ public class HeroOrganization {
     
     private Hero hero;
     private Organization org;
+    private int[] orgIds;
 
 }

@@ -8,5 +8,6 @@ public class HeroPower {
     
     private Hero hero;
     private Power power;
+    private int[] powerIds;
 
 }

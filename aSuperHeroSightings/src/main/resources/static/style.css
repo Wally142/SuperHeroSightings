@@ -37,7 +37,7 @@ img {
     font-size: 18px;
 }
 
-#powers {
+/* #powers {
     position: relative;
     right: 50px;
     box-sizing: border-box;
@@ -47,9 +47,9 @@ img {
     background-color: white;
     padding: 12px 20px 12px 40px;
     width: 300px;
-}
+} */
 
-#orgs {
+/* #orgs {
     position: relative;
     left: 50px;
     box-sizing: border-box;
@@ -59,7 +59,7 @@ img {
     background-color: white;
     padding: 12px 20px 12px 40px;
     width: 300px;
-}
+} */
 
 .one {
     position: relative;

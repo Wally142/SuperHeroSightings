@@ -28,6 +28,7 @@ public class BridgeDaoImpl implements BridgeDao {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public Integer heroSighting(int hero, int sighting) {
+
         jt.update(
                 "INSERT INTO hero_sighting (hero_id, sighting_id) VALUES (?, ?);",
                 hero,
@@ -39,30 +40,35 @@ public class BridgeDaoImpl implements BridgeDao {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public Integer heroPowers(int hero, int powers) {
-        jt.update(
-                "INSERT INTO hero_power (hero_id, power_id) VALUES (?, ?);",
-                hero,
-                powers
-        );
+    public Integer heroPowers(int hero, HeroPower powers) {
 
+        for (int i = 0; i < powers.getPowerIds().length; i++) {
+            jt.update(
+                    "INSERT INTO hero_power (hero_id, power_id) VALUES (?, ?);",
+                    hero,
+                    powers.getPowerIds()[i]
+            );
+        }
         return hero;
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public Integer heroOrganization(int hero, int org) {
-        jt.update(
-                "INSERT INTO hero_organization (hero_id, organization_id) VALUES (?, ?);",
-                hero,
-                org
-        );
+    public Integer heroOrganization(int hero, HeroOrganization org) {
 
+        for (int i = 0; i < org.getOrgIds().length; i++) {
+            jt.update(
+                    "INSERT INTO hero_organization (hero_id, organization_id) VALUES (?, ?);",
+                    hero,
+                    org.getOrgIds()[i]
+            );
+        }
         return hero;
     }
 
     @Override
     public List<HeroSighting> showRecentSightings() {
+
         return jt.query("select h.id,  h.name, h.image, l.city, l.country , s.sighted\n"
                 + "from hero_sighting hs\n"
                 + "Inner Join hero h on h.id = hs.hero_id\n"
@@ -74,6 +80,7 @@ public class BridgeDaoImpl implements BridgeDao {
 
     @Override
     public List<HeroPower> allHeroPowers(int heroId) {
+
         return jt.query("select  p.name\n"
                 + "from hero_power hp\n"
                 + "Inner Join hero h on h.id = hp.hero_id\n"
@@ -83,6 +90,7 @@ public class BridgeDaoImpl implements BridgeDao {
 
     @Override
     public List<HeroOrganization> allHeroOrganizations(int heroId) {
+
         return jt.query("select  o.name\n"
                 + "from hero_organization ho\n"
                 + "Inner Join hero h on h.id = ho.hero_id\n"
@@ -92,6 +100,7 @@ public class BridgeDaoImpl implements BridgeDao {
 
     @Override
     public List<HeroOrganization> AllOrganizationMembers(int orgId) {
+
         return jt.query("select  h.name\n"
                 + "from hero_organization ho\n"
                 + "Inner Join hero h on h.id = ho.hero_id\n"
@@ -99,10 +108,41 @@ public class BridgeDaoImpl implements BridgeDao {
                 + "where o.id = ?;", new HeroOrganizationMapper(), orgId);
     }
 
+    @Override
+    public Integer editHeroPowers(int hero, HeroPower powers) {
+
+        jt.update("DELETE FROM hero_power WHERE hero_id = ?;", hero);
+
+        for (int i = 0; i < powers.getPowerIds().length; i++) {
+            jt.update(
+                    "INSERT INTO hero_power (hero_id, power_id) VALUES (?, ?);",
+                    hero,
+                    powers.getPowerIds()[i]
+            );
+        }
+        return hero;
+    }
+
+    @Override
+    public Integer editHeroOrganization(int hero, HeroOrganization org) {
+
+        jt.update("DELETE FROM hero_organization WHERE hero_id = ?;", hero);
+
+        for (int i = 0; i < org.getOrgIds().length; i++) {
+            jt.update(
+                    "INSERT INTO hero_organization (hero_id, organization_id) VALUES (?, ?);",
+                    hero,
+                    org.getOrgIds()[i]
+            );
+        }
+        return hero;
+    }
+
     private static final class HeroSightMapper implements RowMapper<HeroSighting> {
 
         @Override
         public HeroSighting mapRow(ResultSet rs, int i) throws SQLException {
+
             HeroSighting hs = new HeroSighting();
 
             Hero h = new Hero();
@@ -129,6 +169,7 @@ public class BridgeDaoImpl implements BridgeDao {
 
         @Override
         public HeroPower mapRow(ResultSet rs, int i) throws SQLException {
+
             HeroPower hp = new HeroPower();
 
             Hero h = new Hero();
@@ -148,6 +189,7 @@ public class BridgeDaoImpl implements BridgeDao {
 
         @Override
         public HeroOrganization mapRow(ResultSet rs, int i) throws SQLException {
+
             HeroOrganization ho = new HeroOrganization();
 
             Hero h = new Hero();

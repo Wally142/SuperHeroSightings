@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,10 +43,10 @@ public class BridgeTableController {
         return service.getAllSightings();
     }
 
-    @GetMapping("/power/{heroId}/{powerId}")
-    public ResponseEntity<Integer> addHeroPower(@PathVariable int heroId, @PathVariable int powerId) {
+    @PostMapping("/power/{heroId}")
+    public ResponseEntity<Integer> addHeroPower(@PathVariable int heroId, @RequestBody HeroPower pow) {
 
-        Result<Integer> result = service.saveHeroPower(heroId, powerId);
+        Result<Integer> result = service.saveHeroPower(heroId, pow);
         if (result.isSuccess()) {
             return ResponseEntity.ok().build();
         } else {
@@ -64,10 +65,32 @@ public class BridgeTableController {
         }
     }
 
-    @GetMapping("/org/{heroId}/{orgId}")
-    public ResponseEntity<Integer> addHeroOrg(@PathVariable int heroId, @PathVariable int orgId) {
+    @PostMapping("/org/{heroId}")
+    public ResponseEntity<Integer> addHeroOrg(@PathVariable int heroId, @RequestBody HeroOrganization orgId) {
 
         Result<Integer> result = service.saveHeroOrg(heroId, orgId);
+        if (result.isSuccess()) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.noContent().build();
+        }
+    }
+    
+    @PutMapping("/power/edit/{heroId}")
+    public ResponseEntity<Integer> editHeroPower(@PathVariable int heroId, @RequestBody HeroPower pow) {
+
+        Result<Integer> result = service.editHeroPower(heroId, pow);
+        if (result.isSuccess()) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.noContent().build();
+        }
+    }
+    
+     @PutMapping("/org/edit/{heroId}")
+    public ResponseEntity<Integer> editHeroOrg(@PathVariable int heroId, @RequestBody HeroOrganization orgId) {
+
+        Result<Integer> result = service.editHeroOrg(heroId, orgId);
         if (result.isSuccess()) {
             return ResponseEntity.ok().build();
         } else {
