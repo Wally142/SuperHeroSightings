@@ -40,16 +40,18 @@ function getOrg(dat) {
             var location = data.location
 
             $('#addOrg').hide();
+            $('#orgTitle').hide();
+            $('#currentOrgTitle').append(name);
+
             var orgDiv = $('<div></div>');
-            orgDiv.append(`<h3>${name}</h3>`)
-            orgDiv.append(`<h5>${location}</h5>`)
-            orgDiv.append(`<h5>${desc}</h5>`)
+            orgDiv.append(`<h5>Team Info: <span>${desc}</span></h5>`)
+            orgDiv.append(`<h5>Headquarters: <span>${location}</span></h5>`)
             $('#organization').append(orgDiv);
+
             $('#orgbtn').append(`<a class="space btn btn-primary" href="organization.html">Back to Organizations</a>`)
             $('#orgbtn').append(`<a id="deleteOrg" class="space btn btn-danger" href="#">Delete Organization</a>`)
             $('#orgbtn').append(`<a id="edit" class="space btn btn-primary" href="#">Edit Organization</a>`)
-            
-            
+
             $('#edit').on('click', function () {
                 $('#orgbtn').hide()
                 edit(data)
@@ -59,8 +61,12 @@ function getOrg(dat) {
                 deleteOrg(id)
             })
 
+            getMembers(dat);
         }
     })
+};// end get Org
+
+function getMembers(dat) {
 
     $.ajax({
         type: 'GET',
@@ -73,14 +79,14 @@ function getOrg(dat) {
                 console.log(item)
 
                 var div = $('<div></div>');
-                var link = $(`<p class="orgs" data-id=${id} href="#">${name}<p>`)
+                var link = $(`<h5 class="orgs" data-id=${id} href="#">Member: <span>${name}<span></5>`)
                 div.append(link);
                 $('#organization').append(div);
 
             });
         }
     })// end hero org ajax
-};// end get Org
+}
 
 function deleteOrg(id) {
     $.ajax({

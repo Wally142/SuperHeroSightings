@@ -3,6 +3,15 @@ body {
     background-color: rgb(244, 244, 244);
 }
 
+h1, h5, h2 {
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Playfair Display', serif;
+}
+
+h2 {
+    color: #007bff; 
+}
+
 .sightDrop {
     text-indent: 500px;
 }
@@ -31,42 +40,23 @@ img {
 
   .list {
       background-color: rgb(255, 255, 255);
-  }
- 
-  .showHeroes {
-    font-size: 18px;
 }
 
-/* #powers {
-    position: relative;
-    right: 50px;
-    box-sizing: border-box;
-    border: 1px solid black;
-    border-radius: 4px;
+.showHeroes {
     font-size: 20px;
-    background-color: white;
-    padding: 12px 20px 12px 40px;
-    width: 300px;
-} */
-
-/* #orgs {
-    position: relative;
-    left: 50px;
-    box-sizing: border-box;
-    border: 1px solid black;
-    border-radius: 4px;
-    font-size: 20px;
-    background-color: white;
-    padding: 12px 20px 12px 40px;
-    width: 300px;
-} */
-
-.one {
-    position: relative;
-    float: right;
-    bottom: 10px;
 }
 
-.space {
-    margin-left:5px;
+.styleNav {
+    background-color: #007bff;
 }
+
+.nav-link {
+    color: white;
+}
+
+.blue {
+    background-color: #007bff;
+}
+
+
+

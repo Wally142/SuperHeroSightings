@@ -64,6 +64,7 @@ public class HeroDaoImpl implements HeroDao {
                 + " name = ?,"
                 + " description = ?,"
                 + " city = ?,"
+                + " image = ?,"
                 + " villain = ?"
                 + " WHERE id = ?;";
 
@@ -71,12 +72,17 @@ public class HeroDaoImpl implements HeroDao {
                 hero.getName(),
                 hero.getDescription(),
                 hero.getCity(),
+                hero.getImage(),
                 hero.isVillain(),
                 hero.getId()) > 0;
     }
 
     @Override
     public boolean deleteHero(int id) {
+        jt.update("DELETE FROM hero_power WHERE hero_id = ?;", id);
+        jt.update("DELETE FROM hero_organization WHERE hero_id = ?;", id);
+        jt.update("DELETE FROM hero_sighting WHERE hero_id = ?;", id);
+        
         return jt.update("DELETE FROM hero WHERE id = ?;", id) > 0;
     }
 

@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Playfair+Display" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <ul class="nav justify-content-center">
+    <ul class="nav justify-content-center styleNav">
         <li class="nav-item">
             <a class="nav-link active" href="/">Home</a>
         </li>
@@ -29,8 +30,9 @@
             <a class="nav-link" href="sighting.html">Sightings</a>
         </li>
     </ul>
-
-    <h1 class="text-center"> Superhero and Villain Organizations!</h1>
+    <br>
+    <h1 id="orgTitle" class="text-center"> Superhero And Villain Organizations</h1>
+    <h1 id="currentOrgTitle" class="text-center"></h1>
     <br>
     <div class="container text-center">
 
@@ -39,7 +41,6 @@
         </div>
         <br>
 
-        
         <div class="list form-group text-center" id="organization"></div>
         <br>
         <button id="addOrg" class="btn btn-primary">Add Organization</button>

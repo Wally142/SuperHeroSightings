@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Playfair+Display" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <ul class="nav justify-content-center">
+    <ul class="nav justify-content-center styleNav">
         <li class="nav-item">
             <a class="nav-link active" href="/">Home</a>
         </li>
@@ -30,7 +31,7 @@
             <a class="nav-link" href="sighting.html">Sightings</a>
         </li>
     </ul>
-
+    <br>
     <h1 class="text-center"> The Daily Superhero</h1>
 
     <br>
@@ -52,17 +53,22 @@
 
         <!-- Left and right controls -->
         <a class="carousel-control-prev" href="#heroCarousel" data-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
+            <span class="blue carousel-control-prev-icon"></span>
         </a>
         <a class="carousel-control-next" href="#heroCarousel" data-slide="next">
-            <span class="carousel-control-next-icon"></span>
+            <span class="blue carousel-control-next-icon"></span>
         </a>
     </div>
 
     <br>
     <br>
-    <div class="text-center">
-        <img src="images/heroes.jpg">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="images/heroes.jpg">
+        </div>
+        <div class="col-md-6 list">
+            <img src="images/edithero.png">
+        </div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -74,5 +80,6 @@
         })(); 
     </script>
 </body>
+<a target="_blank" href="https://www.youtube.com/watch?v=sAkL2-vh2Sk">&copy;Greg Wallerus</a>
 
 </html>

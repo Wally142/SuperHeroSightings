@@ -45,11 +45,13 @@ function getVillain(dat) {
 
             $('#addVillainPage').hide();
             $('#villainPic').hide();
+            $('#villainTitle').hide();
             $('#villains').append(`<img class="heroImg" src=${image}>`);
+            $('#currentVillainTitle').append(villName)
             var villDiv = $('<div></div>');
-            villDiv.append(`<h3>${villName}</h3>`)
-            villDiv.append(`<h5>${villCity}</h5>`)
-            villDiv.append(`<h5>${villDesc}</h5>`)
+
+            villDiv.append(`<h5>Territory: <span>${villCity}</span></h5>`)
+            villDiv.append(`<h5>Bio: <span>${villDesc}</span></h5>`)
             $('#villbtn').append(`<a class="space btn btn-primary" href="villain.html">Back to Villains</a>`)
             $('#villbtn').append(`<a id="deleteVillain" class="space btn btn-danger" href="#">Delete Villain</a>`)
             $('#villbtn').append(`<a id="editVillain" class="space btn btn-primary" href="#">Edit Villain</a>`)
@@ -83,7 +85,7 @@ function getPowers(dat) {
                 var id = item.id
 
                 var div = $('<div></div>');
-                var link = $(`<h5 class="powers" data-id=${id} href="#">${name}</h5>`)
+                var link = $(`<h5 class="powers" data-id=${id} href="#">Ability : <span>${name}</span></h5>`)
                 div.append(link);
                 $('#abil').append(div);
             });
@@ -101,7 +103,7 @@ function getOrgs(dat) {
                 var id = item.id
 
                 var div = $('<div></div>');
-                var link = $(`<h5 class="orgs" data-id=${id} href="#">${name}</h5>`)
+                var link = $(`<h5 class="powers" data-id=${id} href="#">Organizations : <span>${name}</span></h5>`)
                 div.append(link);
                 $('#teams').append(div);
 
@@ -120,8 +122,13 @@ function villianInput() {
     $('#villains').append('<input class="form-control" type="text" id="city" placeholder="City/Home"><br>')
     $('#villains').append('<input class="form-control" type="text" id="pic"  placeholder="URL Image"><br>')
 
-    $('#villains').append('<form id="powers"></form>')
-    $('#villains').append('<form id="orgs"></form><br>')
+    $('#villains').append('<div id="vilHead" class="row"></div><br>')
+    $('#vilHead').append('<h2 class="col-md-6>Powers and Abilities</h2>')
+    $('#vilHead').append('<h2 class="col-md-6>Teams and Organizations</h2>')
+    
+    $('#villains').append('<div id="vil" class="row"></div>')
+    $('#vil').append('<form class=col-md-6 id="powers"></form>')
+    $('#vil').append('<form class=col-md-6 id="orgs"></form><br>')
 
     $('#villains').append('<a class="one btn btn-danger" href="/villain.html">Back</button>')
     $('#villains').append('<button id="add" class="one btn btn-primary">Submit</button>')
@@ -234,7 +241,7 @@ function deleteVillain(id) {
         url: "http://localhost:8080/api/hero/" + id,
         success: function (status) {
             loadVillains();
-            $('#addVillainPage').show();
+            window.location.replace("villain.html");
         }
     });
 }
@@ -246,8 +253,13 @@ function editVil(data) {
     $('#villains').append('<input class="form-control" type="text" id="city" placeholder="City/Home"><br>')
     $('#villains').append('<input class="form-control" type="text" id="pic"  placeholder="URL Image"><br>')
 
-    $('#villains').append('<form id="powers"></form>')
-    $('#villains').append('<form id="orgs"></form><br>')
+    $('#villains').append('<div id="vilHead" class="row"></div><br><br>')
+    $('#vilHead').append('<h2 class="col-md-6>Powers and Abilities</h2>')
+    $('#vilHead').append('<h2 class="col-md-6>Teams and Organizations</h2>')
+
+    $('#villains').append('<div id="vil" class="row"></div>')
+    $('#vil').append('<form class=col-md-6 id="powers"></form>')
+    $('#vil').append('<form class=col-md-6 id="orgs"></form><br>')
 
     $('#villains').append('<a class="one btn btn-danger" href="/villain.html">Back</button>')
     $('#villains').append(`<a id="edit" class="one btn btn-primary" href="#">Edit Villain</a>`)
@@ -314,7 +326,7 @@ function editVillain(id) {
             console.log('successful update!');
             $('#villains').empty();
             loadVillains();
-            $('#addVillainPage').show();
+            window.location.replace("villain.html");
 
             $.ajax({
 

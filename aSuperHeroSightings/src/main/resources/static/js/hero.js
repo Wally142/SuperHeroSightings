@@ -46,14 +46,18 @@ function getHero(dat) {
 
             $('#addHeroPage').hide();
             $('#heroPic').hide();
+            $('#heroTitle').hide();
             $('#heroes').append(`<img class="heroImg" src=${image}>`);
+            $('#currentHeroTitle').append(heroName);
+
             var heroDiv = $('<div></div>');
-            heroDiv.append(`<h3>${heroName}</h3>`)
-            heroDiv.append(`<h5>${heroCity}</h5>`)
-            heroDiv.append(`<h5>${heroDesc}</h5>`)
+            heroDiv.append(`<h5>Territory: <span>${heroCity}</span><h5>`)
+            heroDiv.append(`<h5>Bio: <span>${heroDesc}</span></h5>`)
+
             $('#herobtn').append(`<a class="space btn btn-primary" href="heroes.html">Back to Heroes</a>`)
             $('#herobtn').append(`<a id="deleteHero" class="space btn btn-danger" href="#">Delete Hero</a>`)
             $('#herobtn').append(`<a id="editHero" class="space btn btn-primary" href="#">Edit Hero</a>`)
+
             var teamDiv = $('<div id="team"></div')
             $('#heroes').append(heroDiv)
             $('#heroes').append(heroDiv)
@@ -85,7 +89,7 @@ function getPowers(dat) {
                 var id = item.id
 
                 var div = $(`<div id=${name}></div>`);
-                var link = $(`<h5 class="powers" data-id=${id} href="#">${name}</h5>`)
+                var link = $(`<h5 class="powers" data-id=${id} href="#">Ability: <span>${name}</span></h5>`)
                 div.append(link);
                 $('#ability').append(div);
 
@@ -105,7 +109,7 @@ function getOrgs(dat) {
                 var id = item.id
 
                 var div = $(`<div id=${name}></div>`);
-                var link = $(`<h5 class="powers" data-id=${id} href="#">${name}</h5>`)
+                var link = $(`<h5 class="powers" data-id=${id} href="#">Organizations : <span>${name}</span></h5>`)
                 div.append(link);
                 $('#team').append(div);
 
@@ -124,10 +128,16 @@ function heroInput() {
     $('#heroes').append('<input type="text" id="city" class="form-control" placeholder="City/Home"><br>')
     $('#heroes').append('<input type="text" id="pic"  class="form-control" placeholder="URL Image"><br>')
 
+    $('#heroes').append('<div id="heroHead" class="row"></div><br><br>')
+    $('#heroHead').append('<h2 class="col-md-6">Powers and Abilities</h2>')
+    $('#heroHead').append('<h2 class="col-md-6">Teams and Organizations</h2>')
+
+    $('#heroes').append('<div id="her" class="row"></div>')
+    $('#her').append('<form class=col-md-6 blue" id="powers"></form>')
+    $('#her').append('<form class=col-md-6 blue" id="orgs"></form><br>')
+
     $('#heroes').append('<a class="one btn btn-danger" href="/heroes.html">Back</button>')
     $('#heroes').append('<button id="add" class="one btn btn-primary">Submit</button>')
-    $('#heroes').append('<form id="powers"></form>')
-    $('#heroes').append('<form id="orgs"></form><br>')
     $('#addHeroPage').hide();
     $('#add').on("click", addHero);
     loadPowers();
@@ -230,7 +240,7 @@ function deleteHero(id) {
         url: "http://localhost:8080/api/hero/" + id,
         success: function (status) {
             loadHeroes();
-            $('#addHeroPage').show();
+            window.location.replace("heroes.html");
         }
     });
 }
@@ -242,12 +252,20 @@ function edit(data) {
     $('#heroes').append('<input type="text" id="city" class="form-control" placeholder="City/Home"><br>')
     $('#heroes').append('<input type="text" id="pic" class="form-control" placeholder="URL Image"><br>')
 
-    $('#heroes').append('<form id="powers"></form>')
-    $('#heroes').append('<form id="orgs"></form><br>')
+    $('#heroes').append('<div id="heroHead" class="row"></div><br><br>')
+    $('#heroHead').append('<h2 class="col-md-6">Powers and Abilities</h2>')
+    $('#heroHead').append('<h2 class="col-md-6">Teams and Organizations</h2>')
 
-    $('#heroes').append('<a class="one btn btn-danger" href="/heroes.html">Back</button>')
-    $('#heroes').append(`<a id="edit" class="one btn btn-primary" href="#">Edit Hero</a>`)
-    $('#heroes').append(`<img src="images/edithero.png">`)
+    $('#heroes').append('<div id="her" class="row"></div>')
+    $('#her').append('<form class=col-md-6 id="powers"></form>')
+    $('#her').append('<form class=col-md-6 id="orgs"></form><br>')
+    
+    $('#heroes').append('<div id="two"></div>')
+    
+
+    $('#two').append('<a class="one btn btn-danger" href="/heroes.html">Back</button>')
+    $('#two').append('<a id="edit" class="one btn btn-primary" href="#">Edit Hero</a>')
+    $('#heroes').append('<br><br><img src="images/super.png">')
 
     loadPowers();
     loadOrgs();
@@ -305,10 +323,10 @@ function editHero(id) {
         'dataType': 'json'
     }).always(function (xhr) {
         if (xhr.status >= 200 && xhr.status < 300) {
-            console.log('successful update!');
+            console.log('MUTT!');
             $('#heroes').empty();
             loadHeroes();
-            $('#addHeroPage').show();
+            window.location.replace("heroes.html");
 
             $.ajax({
 
@@ -386,7 +404,7 @@ function loadOrgs() {
                 var name = item.name
                 var id = item.id
 
-                var option = $(`<div><input class="chck" id=${name} type="checkbox" value=${id}>${name}</div>`);
+                var option = $(`<div id=${name}><input class="chck" type="checkbox" value=${id}>${name}</div>`);
                 $('#orgs').append(option);
             });
         }
