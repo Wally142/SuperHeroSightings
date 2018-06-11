@@ -39,7 +39,7 @@ Spring Framework
 Spring JDBC Template
 Spring Boot
 Google Maps API Key
-MySql 
+MySql, run Superhero.sql file to create set up
 
 ### Completed Features
 
