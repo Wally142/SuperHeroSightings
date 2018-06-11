@@ -5,7 +5,14 @@ Superhero Sightings is a project that allows users to track Superheroes and Vill
 After entering in coordinates, the Google Maps API creates a marker on the map of that location allowing users to see which heroes have been spotted where.
 The 10 most recent sightings will then be displayed on the homepage, keeping users up to date with the latest superhero activity.
 
-<img src= "Homepage.png">
+## Screen Shots
+
+Dashboard screenshot:
+<p>
+<br>
+<img src="Homepage.png" height="400px">
+</p>
+<br>
 
 ## Built With
 
