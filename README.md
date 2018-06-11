@@ -1,6 +1,6 @@
 # Superhero Sightings
 
-Superhero Sightings is a project that allows users to track Superheroes and Villains based on their location. Users have the ability to add someone to the main directory of heroes, as well as the organizations or teams that they have been known to be apart of.
+Superhero Sightings is a project that allows users to track Superheroes and Villains based on their location. Users have the ability to add someone to the main directory of heroes, as well as the organizations or teams that they have been known to be apart of. Users can also edit or delete these features.
 
 After entering in coordinates, the Google Maps API creates a marker on the map of that location allowing users to see which heroes have been spotted where.
 The 10 most recent sightings will then be displayed on the homepage, keeping users up to date with the latest superhero activity.
@@ -27,9 +27,9 @@ Sightings Map:
 </p>
 <br>
 
-## Built With
+## Technologies Used
 
-Technologies used: Java, NetBeans, JUnit, Maven, Spring MVC, XML, Spring Boot, JDBC Template, MySql, JavaScript, JQuery, Google Maps API, Bootstrap, HTML5 , CSS
+Java, NetBeans, JUnit, Maven, Spring MVC, XML, Spring Boot, JDBC Template, MySql, JavaScript, JQuery, Google Maps API, Bootstrap, HTML5 , CSS3
 
 ### Prerequisites
 
