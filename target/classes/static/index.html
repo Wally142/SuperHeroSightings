@@ -1,0 +1,86 @@
+<html>
+
+<head>
+    <title>Super Hero Sightings!</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Playfair+Display" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <ul class="nav justify-content-center styleNav">
+        <li class="nav-item">
+            <a class="nav-link active" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="heroes.html">Heroes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="villain.html">Villains</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="organization.html">Organizations</a>
+        </li>
+        <!-- <li class="nav-item">
+            <a class="nav-link" href="location.html">Locations</a>
+        </li> -->
+        <li class="nav-item">
+            <a class="nav-link" href="sighting.html">Sightings</a>
+        </li>
+    </ul>
+    <br>
+    <h1 class="text-center"> The Daily Superhero</h1>
+
+    <br>
+
+    <div id="heroCarousel" class="carousel slide" data-ride="carousel" data-interval="2500">
+
+        <!-- Indicators -->
+        <ol id="indicator" class="carousel-indicators">
+            <li data-target="#heroCarousel" data-slide-to="0" class="active"></li>
+
+        </ol>
+
+        <!-- The slideshow -->
+        <div id="heroSlide" class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="images/news.jpg" alt="News Flash!">
+            </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="carousel-control-prev" href="#heroCarousel" data-slide="prev">
+            <span class="blue carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#heroCarousel" data-slide="next">
+            <span class="blue carousel-control-next-icon"></span>
+        </a>
+    </div>
+
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            <img src="images/heroes.jpg">
+        </div>
+        <div class="col-md-6 list">
+            <img src="images/edithero.png">
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="/js/index.js"></script>
+    <script type="text/javascript"> 
+        (function () {
+            $("#main-slider").carousel();
+        })(); 
+    </script>
+</body>
+
+<a target="_blank" href="https://www.youtube.com/watch?v=sAkL2-vh2Sk">&copy;Greg Wallerus</a>
+
+</html>
