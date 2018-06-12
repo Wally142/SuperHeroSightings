@@ -1,6 +1,7 @@
-SuperHeroSightings/target/
+target/
 .DS_Store/
-SuperHeroSightings/nbproject/
+nbproject/
 .settings/
 .classpath/
 .project/
+.factorypath/
