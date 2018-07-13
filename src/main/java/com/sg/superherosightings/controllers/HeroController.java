@@ -76,7 +76,7 @@ public class HeroController {
         }
     }
 
-    @DeleteMapping("/hero/{heroId}")
+    @GetMapping("/hero/{heroId}")
     public ResponseEntity<Void> deleteHero(@PathVariable int heroId) {
 
         heroService.deleteHero(heroId);

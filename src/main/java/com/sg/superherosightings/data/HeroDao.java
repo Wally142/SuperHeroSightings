@@ -2,7 +2,6 @@ package com.sg.superherosightings.data;
 
 import com.sg.superherosightings.models.Hero;
 import com.sg.superherosightings.models.Power;
-import com.sg.superherosightings.service.Result;
 import java.util.List;
 
 
