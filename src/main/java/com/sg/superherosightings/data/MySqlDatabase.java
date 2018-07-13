@@ -22,11 +22,11 @@ public class MySqlDatabase {
 //    public DataSourceTransactionManager getTransactionManager(DataSource ds) {
 //        return new DataSourceTransactionManager(ds);
 //    }
-//
-//    @Bean
-//    public JdbcTemplate getJdbcTemplate(DataSource ds) {
-//        return new JdbcTemplate(ds);
-//    }
+
+    @Bean
+    public JdbcTemplate getJdbcTemplate(Connection conn) {
+        return new JdbcTemplate((DataSource) conn);
+    }
 
 //    @Bean
 //    public static DataSource getDataSource() throws SQLException {

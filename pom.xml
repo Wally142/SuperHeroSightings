@@ -39,6 +39,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
             <type>jar</type>
+            <version>5.0.7.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
