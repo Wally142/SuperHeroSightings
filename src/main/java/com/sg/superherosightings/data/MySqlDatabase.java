@@ -18,15 +18,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class MySqlDatabase {
 
-    @Bean
-    public DataSourceTransactionManager getTransactionManager(DataSource ds) {
-        return new DataSourceTransactionManager(ds);
-    }
-
-    @Bean
-    public JdbcTemplate getJdbcTemplate(DataSource ds) {
-        return new JdbcTemplate(ds);
-    }
+//    @Bean
+//    public DataSourceTransactionManager getTransactionManager(DataSource ds) {
+//        return new DataSourceTransactionManager(ds);
+//    }
+//
+//    @Bean
+//    public JdbcTemplate getJdbcTemplate(DataSource ds) {
+//        return new JdbcTemplate(ds);
+//    }
 
 //    @Bean
 //    public static DataSource getDataSource() throws SQLException {
